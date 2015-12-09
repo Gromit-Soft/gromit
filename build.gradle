@@ -15,12 +15,19 @@ repositories {
     }
 }
 
-dependencies {
-    compile 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
-    compile 'org.json:json:20141113'   
+configurations {
+    provided
 }
 
+dependencies {
+    provided 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
+}
 
+sourceSets.main.compileClasspath += [configurations.provided]
+
+artifacts {
+    archives jar
+}
 
 /*
  * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
@@ -216,5 +223,12 @@ jar.doFirst {
     tasks.combineCss.execute()
     tasks.minifyCss.execute()
     tasks.gzipCss.execute()
+}
+
+/*
+ * We want to install the JAR into the local Maven cache when you build it
+ */
+distZip2.doLast {
+    tasks.install.execute()
 }
 
