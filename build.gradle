@@ -135,7 +135,7 @@ gzipCss {
 }
 
 checkstyle {
-    configFile new File(rootDir, 'build/config/checkstyle_checks.xml')
+    configFile new File(rootDir, 'src/build/config/checkstyle_checks.xml')
 }
 
 /*
@@ -180,6 +180,16 @@ task distZip2(type: Jar) {
     from('src/main/css') {
         include '**/*'
         into 'css'
+    }
+    
+    from('build/css') {
+        include '**/*'
+        into 'css'
+    }
+    
+    from('build/js') {
+        include '**/*'
+        into 'js'
     }
 }
 
