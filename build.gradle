@@ -1,8 +1,7 @@
-defaultTasks 'jar'
+defaultTasks 'jar', 'distZip2'
 
 apply plugin: 'checkstyle'
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
@@ -20,6 +19,8 @@ dependencies {
     compile 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
     compile 'org.json:json:20141113'   
 }
+
+
 
 /*
  * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
@@ -162,6 +163,23 @@ task jsHint(type:Exec) {
         if (execResult.exitValue != 0) {
             throw new GradleScriptException("There were JSHint errors.  Look above and fix the issues.", null);
         }
+    }
+}
+
+task distZip2(type: Jar) {
+    from('.') {
+        include 'LICENSE.txt'
+        include 'README.md'
+    }
+    
+    from('src/main/js') {
+        include '**/*'
+        into 'js'
+    }
+    
+    from('src/main/css') {
+        include '**/*'
+        into 'css'
     }
 }
 
