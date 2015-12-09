@@ -99,6 +99,7 @@ task concatLibFiles(type: ConcatFiles) {
         'src/main/js/lib/Markdown.Converter.js',
         'src/main/js/lib/Markdown.Sanitizer.js',
         'src/main/js/lib/Markdown.Editor.js',
+        'src/main/js/lib/moment-with-locales.min.js',
         'build/js/gromit-min.js')
     target = file('build/js/gromit-all-min.js')
 }
