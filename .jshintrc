@@ -1,0 +1,30 @@
+{
+  "curly": true,
+  "bitwise": true,
+  "eqeqeq": true,
+  "es3": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "indent": 4,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonbsp": true,
+  "nonew": true,
+  "quotmark": true,
+  "undef": true,
+  "strict": true,
+  "globalstrict": true,
+  "browser": true,
+  "jquery": true,
+  "devel": true,
+  "globals": {
+      "gromit": false
+  },
+  "predef": [ "angular", "moment", "require", "define", "_", "Showdown", "Markdown", "humanMsg", "JSON" ],
+  "maxparams": 16,
+  "maxdepth": 7,
+  "maxcomplexity": 15
+}
