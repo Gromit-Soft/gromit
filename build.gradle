@@ -103,6 +103,7 @@ class ConcatFiles extends DefaultTask {
 
 task concatLibFiles(type: ConcatFiles) {
     files = files(
+        'src/main/js/lib/underscore-min.js',
         'src/main/js/lib/Markdown.Converter.js',
         'src/main/js/lib/Markdown.Sanitizer.js',
         'src/main/js/lib/Markdown.Editor.js',

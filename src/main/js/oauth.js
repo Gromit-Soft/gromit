@@ -148,7 +148,7 @@ gromit.request = function(/*Object*/ req) {
             /*
              * This means we weren't able to contact the server at all
              */
-            gromit.showFatalError(gromit.i18n.getI18n_general_network_error(req.url));
+            gromit.showFatalError('Unable to contact server at ' + req.url);
         } else if (data && data.Fault) {
             /*
              * This means the server returned a RESTException
