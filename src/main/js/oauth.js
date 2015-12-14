@@ -213,6 +213,10 @@ gromit.requestPromise = function(/*Object*/ req) {
  * redirects to the OAuth page.
  */
 gromit.doLogin = function() {
+    if (gromit.isEmpty(gromit.AuthUrl)) {
+        throw 'Unable to log in without gromit.AuthUrl';
+    }
+    
     gromit.oAuthAuthenticate(gromit.AuthUrl, function(/*String*/ token, /*String*/ type) {
         gromit.token = token;
         $.cookie('gromitTokenCookie', token);
@@ -244,6 +248,10 @@ gromit.doLogout = function() {
     $.cookie('gromitTokenTypeCookie', null, {
         path: '/'
     });
+    
+    if (gromit.isEmpty(gromit.AuthLogoutUrl)) {
+        throw 'Unable to log out without gromit.AuthLogoutUrl';
+    }
 
     window.location.assign(gromit.AuthLogoutUrl + '?target=' + redirectTo);
 };
@@ -283,6 +291,10 @@ gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback) {
     window.addEventListener('message', gromit.oAuthAuthenticateCompleteEventListener, false);
 
     gromit.oauthCallback = callback;
+    
+    if (gromit.isEmpty(gromit.ClientId)) {
+        throw 'Unable to log in without client ID';
+    }
 
     url += '?response_type=token';
     url += '&redirect_uri=' + gromit.getCurrentUrl() + 'oauth.html';
