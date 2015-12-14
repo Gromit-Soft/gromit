@@ -16,6 +16,8 @@
  *
  ******************************************************************************/
  'use strict';
+ 
+
 
 /*
  * This is a utility object which we can use to hold window level
@@ -222,5 +224,6 @@ var gromit = {
             gromit.updateStyles();
         });
     }
-
 };
+
+angular.module('gromitsoft', []);
