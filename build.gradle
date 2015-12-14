@@ -126,6 +126,7 @@ task concatLibFiles(type: ConcatFiles) {
         'src/main/js/lib/Markdown.Sanitizer.js',
         'src/main/js/lib/Markdown.Editor.js',
         'src/main/js/lib/moment-with-locales.min.js',
+        'src/main/js/lib/require.js',
         'build/js/gromit-min.js')
     target = file('build/js/gromit-all-min.js')
 }
@@ -217,6 +218,11 @@ task distZip2(type: Jar) {
     from('build/js') {
         include '**/*'
         into 'js'
+    }
+    
+    from('src/main/html') {
+        include '**/*'
+        into 'html'
     }
 }
 
