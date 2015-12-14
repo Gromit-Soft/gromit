@@ -286,7 +286,7 @@ gromit.escapeHtml = function(/*string*/ html) {
  * @param msg the message to show
  */
 gromit.showMessage = function(/*String*/ msg) {
-    require(['js/lib/humanmsg.js'], function() {
+    require(['gromit/js/lib/humanmsg.js'], function() {
         humanMsg.setup();
         jQuery('#humanMsg').removeClass('humanMsgErr').removeClass('humanMsgWarn').addClass('humanMsgInfo');
         humanMsg.displayMsg(gromit.escapeHtml(msg), false);
@@ -300,7 +300,7 @@ gromit.showMessage = function(/*String*/ msg) {
  * @param shouldLog true if we should log this message and false otherwise
  */
 gromit.showWarningMessage = function(/*String*/ msg, /*boolean*/ shouldLog) {
-    require(['js/lib/humanmsg.js'], function() {
+    require(['gromit/js/lib/humanmsg.js'], function() {
         humanMsg.setup();
         jQuery('#humanMsg').removeClass('humanMsgErr').removeClass('humanMsgInfo').addClass('humanMsgWarn');
         humanMsg.displayMsg(gromit.escapeHtml(msg), false);
@@ -317,7 +317,7 @@ gromit.showWarningMessage = function(/*String*/ msg, /*boolean*/ shouldLog) {
  * @param msg the message to show
  */
 gromit.showErrorMessage = function(/*String*/ msg) {
-    require(['js/lib/humanmsg.js'], function() {
+    require(['gromit/js/lib/humanmsg.js'], function() {
         humanMsg.setup();
         jQuery('#humanMsg').removeClass('humanMsgWarn').removeClass('humanMsgInfo').addClass('humanMsgErr');
         humanMsg.displayMsg(gromit.escapeHtml(msg), false);
