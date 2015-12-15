@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!--
+    This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+    Checkstyle-Configuration: Sentinel Baseline Proof Project
+    Description: 
+Sentinel Baseline Proof Project
+-->
+<module name="Checker">
+  <property name="severity" value="error"/>
+  <metadata name="com.atlas-sw.eclipse" value="I like Sydney"/>
+  <!--<module name="Header">
+      <property name="headerFile" value="${checkstyle.header.file}"/>
+      <property name="fileExtensions" value="java"/>
+  </module>-->
+  <module name="TreeWalker">
+    <module name="HiddenField"/>
+    <module name="IllegalType">
+      <property name="illegalClassNames" value="com.google.gwt.user.client.ui.FlexTable,com.google.gwt.user.client.ui.HorizontalPanel,com.google.gwt.user.client.ui.VerticalPanel,com.google.gwt.user.client.ui.AbsolutePanel,com.google.gwt.user.client.ui.CellPanel,com.google.gwt.user.client.ui.DeckPanel,com.google.gwt.user.client.ui.DecoratedStackPanel,com.google.gwt.user.client.ui.DecoratedPanel,com.google.gwt.user.client.ui.DockLayoutPanel,com.google.gwt.user.client.ui.DockPanel,com.google.gwt.user.client.ui.Frame,com.google.gwt.user.client.ui.Grid,com.google.gwt.user.client.ui.HeaderPanel,com.google.gwt.user.client.ui.LayoutPanel,com.google.gwt.user.client.ui.LazyPanel,com.google.gwt.user.client.ui.NamedFrame,com.google.gwt.user.client.ui.ResizeComposite,com.google.gwt.user.client.ui.ResizeLayoutPanel,com.google.gwt.user.client.ui.RootLayoutPanel,com.google.gwt.user.client.ui.ScrollPanel,com.google.gwt.user.client.ui.SplitLayoutPanel,com.google.gwt.user.client.ui.StackPanel"/>
+      <!--<property name="severity" value="warning"/>-->
+    </module>
+    <property name="tabWidth" value="4"/>
+    <module name="AvoidStarImport"/>
+    <module name="ConstantName"/>
+    <module name="EmptyBlock">
+      <property name="option" value="text"/>
+      <property name="tokens" value="LITERAL_CATCH"/>
+    </module>
+    <module name="EmptyForIteratorPad"/>
+    <module name="EqualsHashCode"/>
+    <module name="IllegalImport"/>
+    <module name="IllegalInstantiation"/>
+    <module name="IllegalThrows"/>
+    <module name="InnerAssignment"/>
+    <module name="JavadocType"/>
+    <module name="JavadocMethod">
+      <property name="scope" value="protected"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="public"/>
+    </module>
+    <module name="JavadocStyle">
+      <property name="scope" value="protected"/>
+      <property name="checkFirstSentence" value="false"/>
+      <property name="checkHtml" value="false"/>
+    </module>
+    <module name="LeftCurly">
+      <property name="option" value="nl"/>
+      <property name="tokens" value="CLASS_DEF,INTERFACE_DEF,METHOD_DEF,CTOR_DEF"/>
+    </module>
+    <module name="LeftCurly">
+      <property name="tokens" value="LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_SWITCH,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE"/>
+    </module>
+    <module name="LineLength">
+      <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+      <property name="max" value="250"/>
+    </module>
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName">
+      <property name="format" value="^m_[a-zA-Z][a-zA-Z0-9]*$"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="MethodLength">
+      <property name="countEmpty" value="false"/>
+    </module>
+    <module name="MethodName">
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="MethodParamPad"/>
+    <module name="ModifierOrder"/>
+    <module name="NeedBraces"/>
+    <module name="NoWhitespaceAfter">
+      <property name="tokens" value="ARRAY_INIT, BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
+    </module>
+    <module name="NoWhitespaceBefore"/>
+    <module name="NoWhitespaceBefore">
+      <property name="allowLineBreaks" value="true"/>
+      <property name="tokens" value="DOT"/>
+    </module>
+    <module name="OperatorWrap">
+      <property name="option" value="eol"/>
+    </module>
+    <module name="PackageName"/>
+    <module name="ParameterName"/>
+    <module name="ParameterNumber">
+      <property name="severity" value="ignore"/>
+      <property name="id" value="paramNum"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="RedundantImport"/>
+    <module name="RightCurly"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="StaticVariableName">
+      <property name="format" value="^g_[a-zA-Z][a-zA-Z0-9]*$"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="TypeName"/>
+    <module name="UnusedImports"/>
+    <module name="UpperEll"/>
+    <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true"/>
+      <property name="protectedAllowed" value="true"/>
+    </module>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+    <module name="GenericWhitespace"/>
+    <module name="FinalClass"/>
+    <module name="MissingSwitchDefault"/>
+    <module name="CyclomaticComplexity">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="NestedIfDepth">
+      <property name="max" value="8"/>
+    </module>
+    <module name="AnnotationUseStyle"/>
+    <module name="MissingOverride">
+      <property name="javaFiveCompatibility" value="true"/>
+    </module>
+    <module name="PackageAnnotation"/>
+    <module name="SuppressWarnings">
+      <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, ENUM_CONSTANT_DEF, PARAMETER_DEF, VARIABLE_DEF, CTOR_DEF"/>
+    </module>
+  </module>
+  <module name="Translation">
+    <property name="severity" value="error"/>
+  </module>
+  <module name="FileTabCharacter"/>
+  <module name="FileLength"/>
+</module>
+
