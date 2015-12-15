@@ -730,7 +730,7 @@ div.longMessagePanel a.closeAnchor, div.errorDetailsPanel a.closeAnchor, #errorp
     width: 10px;
     height: 10px;
     
-    background: url("images_focus/icon_X.png") no-repeat scroll transparent;
+    background: url("images/icon_X.png") no-repeat scroll transparent;
 	background-size:10px;
 }
     
@@ -748,17 +748,17 @@ div.formfeedback {
 }
 
 div.formfeedback.valid {
-    background: url("images_focus/icon_completed_approved.png") no-repeat scroll transparent;
+    background: url("images/icon_completed_approved.png") no-repeat scroll transparent;
 	background-size:16px;
 }
 
 div.formfeedback.error {
-    background: url("images_focus/icon_error.png") no-repeat scroll transparent;
+    background: url("images/icon_error.png") no-repeat scroll transparent;
 	background-size:16px;
 }
 
 div.formfeedback.warning {
-    background: url("images_focus/icon_warning.png") no-repeat scroll transparent;
+    background: url("images/icon_warning.png") no-repeat scroll transparent;
 	background-size:16px;
 }
 

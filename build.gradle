@@ -134,11 +134,11 @@ task concatLibFiles(type: ConcatFiles) {
 /*
  * This section minimizes and combines our CSS files
  */
-FileCollection cssSourceFiles = files('src/main/css/reset.css', 'src/main/css/coreui.css', 'src/main/css/client.css')
+FileCollection cssSourceFiles = files('src/main/css/reset.css', 'src/main/css/coreui.css')
 
 FileTree cssSourceFilesTree = fileTree(dir: 'src/main/css')
 cssSourceFilesTree.include '*.css'
-cssSourceFilesTree.exclude 'coreui.css, reset.css, client.css'
+cssSourceFilesTree.exclude 'coreui.css, reset.css'
 cssSourceFiles = cssSourceFiles + cssSourceFilesTree
 
 combineCss {

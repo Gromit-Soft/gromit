@@ -163,7 +163,6 @@ var gromit = {
             gromit.addCSSLink('gromit/css/humanMsg.css');
             gromit.addCSSLink('gromit/css/reset.css');
             gromit.addCSSLink('gromit/css/coreui.css');
-            gromit.addCSSLink('gromit/css/client.css');
         } else {
             gromit.addCSSLink('gromit/css/gromit-all-min.css');
         }
