@@ -638,7 +638,7 @@ tags-input .autocomplete {
 
 #mainBody {
     position: relative;
-    top: 70px; /*so below the header and fixedHeader*/
+    top: 15px;
 	left: 0;
 	clear: both;
 	padding-bottom: 105px; /*so footer doesn't overlap anything on the bottom */
