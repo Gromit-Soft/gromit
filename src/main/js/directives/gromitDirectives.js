@@ -21,7 +21,7 @@ angular.module('gromitsoft').directive('a', function() {
     return {
         restrict: 'E',
         link: function(scope, elem, attrs) {
-            if (!attrs.href && !attrs.ngHref) {
+            if (!attrs.href && !attrs.ngHref && !attrs.name) {
                 /*
                  * We want to always have an href so Anchors can be keyboard accessible.
                  */
