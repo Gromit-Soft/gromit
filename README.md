@@ -1,4 +1,46 @@
 Gromit
 ==================================================
 
-Work in progress
+This project is currently in the incubator stage.
+
+Setting up the Gromit build environment
+--------------------------------------
+
+This project builds with [Gradle](http://gradle.org/gradle-download/).  Download the latest and add it to your path.  I like to create an alias for gradle like this:
+
+<code>alias gr='~/bin/gradle-2.9/bin/gradle'</code>
+
+Gromit also uses JSHint for JavaScript checking.  You must install JSHint to run the build.  JSHint depends on Node.js so the first step is to [install Node.js](http://nodejs.org/download/).  
+
+Once you've installed Node.js you can run this command to install JSHint:
+
+<code>npm install jshint -g</code>
+
+Verify your setup by running the two following commands:
+
+<code>gradle -version</code>
+<code>jshint -version</code>
+
+Get the Gromit source code:
+
+<pre><code>git clone https://github.com/Gromit-Soft/gromit.git
+git clone https://github.com/Gromit-Soft/gromit-sample.git</code></pre>
+
+Building Gromit
+--------------------------------------
+
+Gromit is made up of two projects:  the Gromit core (just called Gromit) and the Gromit sample application.  Start by building the Gromit core:
+
+<pre><code>cd gromit
+gradle
+</code></pre>
+
+This build will create the Gromit core artifact and install it in your local Maven cache.  
+
+The Gromit sample application contains an embedded server so you can easily run the application.  You can start it like this:
+
+<pre><code>cd gromit-sample
+gradle
+</code></pre>
+
+At this point your Gromit sample server will be running on [your local server](http://localhost:8081) on port 8081.
