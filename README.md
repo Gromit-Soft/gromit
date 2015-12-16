@@ -44,3 +44,11 @@ gradle
 </code></pre>
 
 At this point your Gromit sample server will be running on [your local server](http://localhost:8081) on port 8081.
+
+Verifying the build
+--------------------------------------
+
+Once your change is complete you need to run an addition command to run JSHint and verify the build.  You must run this command before you commit your changes.
+
+<pre><code>gradle clean war
+</code></pre>
