@@ -26,7 +26,7 @@
  *
  * This also supports a max attribute if you don't want to let the number get too big.
  */
-angular.module('gromitsoft').directive('intOnlyInput', function() {
+angular.module('gromitsoft').directive('grIntOnlyInput', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -81,23 +81,37 @@ angular.module('gromitsoft').directive('intOnlyInput', function() {
  *
  * <input type="text" number-only-input ng-model="someValue"  />
  */
-angular.module('gromitsoft').directive('numberOnlyInput', function() {
+angular.module('gromitsoft').directive('grNumberOnlyInput', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
         scope: {
             model: '=ngModel',
-            ngModel: '='
+            ngModel: '=',
+            max: '=',
+            min: '='
         },
         replace: false,
         link: function(scope, elem) {
             elem.addClass('intTextBox');
             scope.$watch('model', function(newValue, oldValue) {
+                var minVal;
+                if (!isNaN(scope.min)) {
+                    minVal = parseInt(scope.min, 10);
+                }
+                
                 if (!newValue || newValue.length === 0) {
                     /*
                      * Empty is OK
                      */
                     return;
+                } else if (minVal && (newValue < minVal || (minVal > -1 && newValue.toString().indexOf('-') > -1))) {
+                    /*
+                     * This means it's a negative number like -4 or zero
+                     */
+                    scope.ngModel = oldValue;
+                } else if (scope.max && newValue > parseInt(scope.max, 10)) {
+                    scope.ngModel = oldValue;
                 } else if (isNaN(newValue)) {
                     /*
                      * This means it's a string like abc
