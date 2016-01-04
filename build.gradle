@@ -1,6 +1,6 @@
 /*******************************************************************************
  * 
- * Copyright 2015 Gromit Soft Team   
+ * Copyright 2015-2016 Gromit Soft Team   
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
  *
  ******************************************************************************/
 
-defaultTasks 'jar', 'distZip2'
+defaultTasks 'jar', 'sourcesJar', 'distZip2'
 
 apply plugin: 'checkstyle'
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 group = 'org.gromitsoft'
 version = '0.1-SNAPSHOT'
@@ -257,3 +258,64 @@ distZip2.doLast {
     tasks.install.execute()
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+signing {
+    if (project.hasProperty('signing.secretKeyRingFile')) {
+        sign configurations.archives
+    }
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
+/*uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+ 
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+              authentication(userName: envDeployUser, password: envDeployPass)
+            }
+ 
+            pom.project {
+               name 'Gromit'
+               packaging 'jar'
+               description 'A compellingly useful set of utilities for AngularJS'
+               url 'https://github.com/gromit-soft'
+ 
+               scm {
+                   url 'scm:git@github.com:Gromit-Soft/gromit.git'
+                   connection 'git@github.com:Gromit-Soft/gromit.git'
+                   developerConnection 'git@github.com:Gromit-Soft/gromit.git'
+               }
+ 
+               licenses {
+                   license {
+                       name 'The Apache Software License, Version 2.0'
+                       url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                       distribution 'repo'
+                   }
+               }
+ 
+               developers {
+                   developer {
+                       id 'zgrossbart'
+                       name 'Zack Grossbart'
+                   }
+               }
+           }
+        }
+    }
+}
+
+uploadArchives.doFirst {
+    if (!project.hasProperty('envDeployUser')) {
+        throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
+    }   
+}*/
