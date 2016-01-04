@@ -271,8 +271,6 @@ uploadArchives {
 }
 
 uploadArchives.doFirst {
-    println 'envDeployUser: ' + envDeployUser
-    println 'envDeployPass: ' + envDeployPass
     if (!project.hasProperty('envDeployUser')) {
         throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
     }   
