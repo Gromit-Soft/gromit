@@ -365,12 +365,6 @@ button {
     background-color: white;
 }
 
-button:hover {
-    opacity: 0.69;
-    color: #0088ce;
-    font-weight: 500;
-}
-
 /*
    Form section styles
  */
