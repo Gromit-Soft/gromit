@@ -249,6 +249,13 @@ gromit.shortDateFormat = function(/*int*/ epoch, /*boolean*/ stripTime) {
 };
 
 /**
+ * Set the locale to use for date and time formatting.
+ */
+gromit.locale = function(/*String*/ locale) {
+    moment.locale(locale);
+};
+
+/**
  * Strip time off of a date
  */
 gromit.stripTime = function(/*int*/ date) {
