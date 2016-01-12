@@ -159,15 +159,7 @@ var gromit = {
         if (gromit.isiPad) {
             gromit.addCSSLink('gromit/css/uncompressed_css/ipad.css');
         }
-
-        gromit.addMediumStyle();
-        gromit.addNarrowStyle();
-
-        $(window).resize(function() {
-            gromit.addMediumStyle();
-            gromit.addNarrowStyle();
-        });
-
+        
         /*
          * If the current browser supports canvas then we'll import paper.
          */
