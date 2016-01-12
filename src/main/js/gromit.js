@@ -82,40 +82,6 @@ var gromit = {
     },
 
     /**
-     * Add the Medium stylesheet to the page if the window width is less than 1024
-     */
-    addMediumStyle: function() {
-        if (!gromit.mediumCSS &&
-            $(window).width() <= 1024) {
-            gromit.mediumCSS = gromit.addCSSLink('gromit/css/uncompressed_css/client.medium.css');
-            return;
-        }
-
-        if (gromit.mediumCSS &&
-            $(window).width() > 1024) {
-            gromit.mediumCSS.remove();
-            gromit.mediumCSS = null;
-        }
-    },
-
-    /**
-     * Add the narrow stylesheet to the page if the window width as narrow as the phone size
-     */
-    addNarrowStyle: function() {
-        if (!gromit.narrowCSS &&
-            $(window).width() < 768) {
-            gromit.narrowCSS = gromit.addCSSLink('gromit/css/uncompressed_css/client.narrow.css');
-            return;
-        }
-
-        if (gromit.narrowCSS &&
-            $(window).width() >= 768) {
-            gromit.narrowCSS.remove();
-            gromit.narrowCSS = null;
-        }
-    },
-
-    /**
      * @private
      */
     updateStyles: function() {
