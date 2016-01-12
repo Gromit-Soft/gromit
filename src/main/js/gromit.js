@@ -174,6 +174,10 @@ var gromit = {
          * tweaks you need to add for IE. This special style sheet is added only
          * if the browser is IE and contains just those tweaks.
          */
+        /*
+         * I'm commenting this out for now so we don't make extra HTTP calls since we don't
+         * have any CSS for specific browsers yet.
+         *
         var browserType = navigator.userAgent.toLowerCase();
         if (browserType.indexOf('msie') > -1 || browserType.match(/trident.+rv:11./)) {
             gromit.addCSSLink('gromit/css/uncompressed_css/msie.css');
@@ -183,13 +187,12 @@ var gromit = {
             gromit.addCSSLink('gromit/css/uncompressed_css/safari.css');
         } else if (browserType.indexOf('firefox') > -1) {
             gromit.addCSSLink('gromit/css/uncompressed_css/firefox.css');
-        } 
+        }
+        */ 
 
         if (gromit.isiPad) {
             gromit.addCSSLink('gromit/css/uncompressed_css/ipad.css');
         }
-
-        gromit.addCSSLink('custom/custom.css');
 
         gromit.addMediumStyle();
         gromit.addNarrowStyle();
