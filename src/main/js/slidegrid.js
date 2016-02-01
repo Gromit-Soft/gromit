@@ -105,8 +105,6 @@ var slidegrid = {
         }
     },
 
-    /* jshint maxcomplexity: 20 */
-
     /**
      * Aligns a set of elements in a resizable grid.
      * 
