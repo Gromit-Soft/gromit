@@ -1,7 +1,9 @@
 Gromit
 ==================================================
 
-This project is currently in the incubator stage.
+Gromit is primarily an OAuth client for AngularJS.  It's focused on the [NetIQ](https://www.netiq.com/) OAuth implementation, but it should work with generic OAuth providers.  
+
+Along with OAuth support this library has support for other features like message handling in the UI, date formatting, safe HTML, and specialized CSS property handling.
 
 Setting up the Gromit build environment
 --------------------------------------
