@@ -27,11 +27,6 @@ var gromit = {
     warningFeedback: 'warning',
 
     /**
-     * This is a map for holding localized strings for the MarkdownEditor. 
-     */
-    MARKDOWN_STRINGS: {},
-
-    /**
      * @private
      */
     addWideStyle: function() {
@@ -46,28 +41,6 @@ var gromit = {
             gromit.wideCSS.remove();
             delete gromit.wideCSS;
         }
-    },
-
-    /**
-     * Setup the markdown control
-     */
-    setupMarkdown: function() {
-        if (gromit.MARKDOWN_CONVERTER) {
-            return;
-        }
-        /*
-         * Create a common markdown converter with any sanitizing hooks we want.
-         * We using the page down Markdown.Sanitizer which has two hooks:
-         * One of them sanitizes the output HTML to only include a list of whitelisted HTML tags.
-         * The other one attempts to balance opening/closing tags to prevent leaking formating
-         * if the HTML is displayed in the browser.
-         * We are adding a hook to prevent <img[^>]+> tags in the output.
-         */
-        gromit.MARKDOWN_CONVERTER = Markdown.getSanitizingConverter();
-        // remove image tags
-        gromit.MARKDOWN_CONVERTER.hooks.chain('postConversion', function(text) {
-            return text.replace(/<img[^>]+>/, '');
-        });
     },
 
     /**
