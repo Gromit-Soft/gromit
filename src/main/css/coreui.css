@@ -727,35 +727,3 @@ div.longMessagePanel a.closeAnchor, div.errorDetailsPanel a.closeAnchor, #errorp
     background: url("images/icon_X.png") no-repeat scroll transparent;
 	background-size:10px;
 }
-    
-
-div.formfeedback {
-    display: inline-block;
-    padding-left: 0;
-    margin-left: 15px;
-    position: static;
-    width: 16px;
-    left: auto;
-    top: auto;
-    vertical-align: top;
-    height: 17px;
-}
-
-div.formfeedback.valid {
-    background: url("images/icon_completed_approved.png") no-repeat scroll transparent;
-	background-size:16px;
-}
-
-div.formfeedback.error {
-    background: url("images/icon_error.png") no-repeat scroll transparent;
-	background-size:16px;
-}
-
-div.formfeedback.warning {
-    background: url("images/icon_warning.png") no-repeat scroll transparent;
-	background-size:16px;
-}
-
-div.formfeedback.none {
-    display: none;
-}
