@@ -609,23 +609,6 @@ input::-ms-clear {
      width: 320px;
  }
 
-tags-input .tags, .formcontrolssection > input[type="text"],.formcontrolssection > textarea {
-    border: thin solid #CCCCCC;
-    border-radius: 4px 4px 4px 4px;
-}
-
-tags-input .tags .tag-item {
-    background: linear-gradient(to bottom,#f0f9ff 0,#e9e9e9 77%,#e9e9e9 100%);
-}
-
-tags-input .host {
-    margin-top: -5px;
-}
-
-tags-input .autocomplete {
-    position: static;
-}
-
 .dialogformsection input.datePicker {
 	width: 145px;
 }
