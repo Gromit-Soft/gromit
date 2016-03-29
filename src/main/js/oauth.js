@@ -128,7 +128,7 @@ gromit.request = function(/*Object*/ req) {
         gromit.tokenType = null;
         gromit.reqs.push(req);
         if (gromit.reqs.length === 1) {
-            gromit.doLogin();
+            gromit.doLogin(req);
         }
     };
 
@@ -201,7 +201,7 @@ gromit.requestPromise = function(/*Object*/ req) {
  * This function kicks off the actual login process which shows the iFrame and
  * redirects to the OAuth page.
  */
-gromit.doLogin = function() {
+gromit.doLogin = function(/*Object*/ req) {
     if (gromit.isEmpty(gromit.AuthUrl)) {
         throw 'Unable to log in without gromit.AuthUrl';
     }
@@ -223,7 +223,7 @@ gromit.doLogin = function() {
         while (reqs.length > 0) {
             gromit.request(reqs.pop());
         }
-    });
+    }, req.isBackground);
 };
 
 /**
@@ -276,7 +276,7 @@ gromit.getCurrentUrl = function() {
  * login function.  It also creates the URL and manages the parameters that we need to 
  * pass to the OAuth server.
  */
-gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback) {
+gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback, /*boolean*/ isBackground) {
     window.addEventListener('message', gromit.oAuthAuthenticateCompleteEventListener, false);
 
     gromit.oauthCallback = callback;
@@ -288,6 +288,10 @@ gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback) {
     url += '?response_type=token';
     url += '&redirect_uri=' + gromit.getCurrentUrl() + 'oauth.html';
     url += '&client_id=' + gromit.ClientId;
+
+    if (isBackground) {
+        url += '&bgr=true';
+    }
 
     gromit.oauthstate = 'gromitstate' + Math.random();
     url += '&state=' + gromit.oauthstate;

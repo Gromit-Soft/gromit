@@ -34,6 +34,35 @@ gromit.get = function(/*String*/ url, /*Angular HTTP object*/ http, /*function*/
 };
 
 /**
+ * Get a specified JSON resource from the server and indicate that this is a background request.  
+ * That means this call will not extend the life of any sessions or security tokens.
+ *
+ * @param url the URL of the resource
+ * @param http the Angular HTTP object to make the request with
+ * @param successCallback the function that will be called back with the data
+ * @param errorCallback the function that will be called back if the request fails
+ * @param unknownErrorCallback the function that will be called back if the request fails
+ */
+gromit.getInBackground = function(/*String*/ url, /*Angular HTTP object*/ http, /*function*/ successCallback, 
+                                  /*function*/ errorCallback, /*function*/ unknownErrorCallback) {
+    var req = {
+        method: 'GET',
+        url: url,
+        headers: {
+            'Accept': 'application/json'
+        }
+    };
+
+    req.http = http;
+    req.successCallback = successCallback;
+    req.errorCallback = errorCallback;
+    req.unknownErrorCallback = unknownErrorCallback;
+    req.isBackground = true;
+    gromit.doRequest(req);
+
+};
+
+/**
  * Get a specified JSON resource as a promise from the server.
  * Used only for typeahead
  *
@@ -92,13 +121,20 @@ gromit.post = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ 
     if (!headers) {
         headers = {};
     }
-    var req = {
+    
+    gromit.postWithRequest({
         method: 'POST',
         url: url,
         headers: headers,
         data: data
-    };
-    
+    }, http, successCallback, errorCallback, unknownErrorCallback);
+};
+
+/**
+ * @private
+ */
+gromit.postWithRequest = function(/*Object*/ req, /*Angular HTTP object*/ http, /*function*/ successCallback,
+                                  /*function*/ errorCallback, /*function*/ unknownErrorCallback, /*Object*/ headers) {
     if (!req.headers['Content-Type']) {
         req.headers['Content-Type'] = 'application/json';
     }
@@ -113,6 +149,31 @@ gromit.post = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ 
     req.unknownErrorCallback = unknownErrorCallback;
 
     gromit.doRequest(req);
+};
+
+/**
+ * POST JSON data to the server
+ *
+ * @param url the URL of the resource
+ * @param http the Angular HTTP object to make the request with
+ * @param data the data to send to the server
+ * @param successCallback the function that will be called back with the data
+ * @param errorCallback the function that will be called back if the request fails
+ * @param unknownErrorCallback the function that will be called back if the request fails
+ */
+gromit.postInBackground = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ data, /*function*/ successCallback,
+                                   /*function*/ errorCallback, /*function*/ unknownErrorCallback, /*Object*/ headers) {
+    if (!headers) {
+        headers = {};
+    }
+    
+    gromit.postWithRequest({
+        method: 'POST',
+        url: url,
+        headers: headers,
+        data: data,
+        isBackground: true
+    }, http, successCallback, errorCallback, unknownErrorCallback);
 };
 
 /**
