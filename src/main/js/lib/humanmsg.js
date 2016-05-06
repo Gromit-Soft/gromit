@@ -125,10 +125,10 @@ var humanMsg = {
             clearTimeout(humanMsg.t2);
         }
 
-		// Watch for mouse & keyboard in .5s
-		humanMsg.t1 = setTimeout(function() {humanMsg.bindEvents();}, 3000);
+        // Watch for mouse & keyboard in .5s
+		humanMsg.t1 = setTimeout(function() {humanMsg.bindEvents();}, 2500);
 		// Remove message after 5s
-		humanMsg.t2 = setTimeout(function() {humanMsg.removeMsg();}, 5000);
+		humanMsg.t2 = setTimeout(function() {humanMsg.removeMsg();}, 4000);
 	},
 	
 	log: function(msg) {
@@ -184,7 +184,7 @@ var humanMsg = {
 	},
 
 	bindEvents: function() {
-	// Remove message if mouse is moved or key is pressed
+         // Remove message if mouse is moved or key is pressed
 		jQuery(window)
 			.mousemove(humanMsg.removeMsg)
 			.click(humanMsg.removeMsg)
