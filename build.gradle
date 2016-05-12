@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
-version = '0.1-SNAPSHOT'
+version = '1.0'
 
 
 repositories {
@@ -251,7 +251,7 @@ uploadArchives {
     if (project.hasProperty('envDeployUser')) {
         repositories {
             mavenDeployer {
-                repository(url: "http://nexus.idmapps.nqbuild.lab/nexus/content/repositories/snapshots/") {
+                repository(url: "http://nexus.idmapps.nqbuild.lab/nexus/service/local/repositories/releases/content") {
                     authentication(userName: envDeployUser, password: envDeployPass)
                 }
             }
