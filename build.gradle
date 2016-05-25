@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
-version = '0.1-SNAPSHOT'
+version = '1.0.1-SNAPSHOT'
 
 
 repositories {
