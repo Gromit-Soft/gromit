@@ -170,7 +170,11 @@ gromit.request = function(/*Object*/ req) {
                  */
                 req.unknownErrorCallback(data, status, headers);
             } else {
-                gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, data));
+                if (data) {
+                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, data));
+                } else {
+                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, ''));
+                }
                 if (window.console) {
                     console.error(gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, data)));
                 }
