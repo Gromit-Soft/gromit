@@ -4,10 +4,10 @@
    20 pixels spacer between columns.
  */
 body {
-    font-family: Helvetica,"Droid Sans",Sans-serif;
+    font-family: Helvetica, "Droid Sans", Sans-serif;
 	font-size: 14px;
     line-height: 18px;
-	color: #444444;
+	color: #444;
 }
 
 .bodyText {
@@ -15,21 +15,31 @@ body {
 }
 
 
-body, input[type=text], select, .input[type=password], textarea, table td, select {
+body,
+input[type=text],
+select,
+.input[type=password],
+textarea,
+table td,
+select {
     font-size: 14px;
     line-height: 16px;
-    font-family: Helvetica,Arial,Sans-serif;
+    font-family: Helvetica, Arial, Sans-serif;
 }
 
-input[type=text], select, input[type=password], textarea {
+input[type=text],
+select,
+input[type=password],
+textarea {
     font-size: 14px;
     line-height: 16px;
 	padding-top: 0;
 	border-radius: 4px;
-	border: 1px solid #cccccc;
+	border: 1px solid #ccc;
 }
 
-input[type=text], textarea {
+input[type=text],
+textarea {
     padding: 2px;
 }
 
@@ -42,10 +52,11 @@ textarea {
 
 #mainWrap a:hover {
 	text-decoration: underline;
-	color: #095EAD;
+	color: #095ead;
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
     margin-top: -9px;
     height: 28px;
     padding-top: 4px;
@@ -68,7 +79,7 @@ fieldset {
 }
 
 .textBlock {
-    font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+    font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
 }
 
 a {
@@ -77,7 +88,8 @@ a {
 }
 
 /* Changing hover color from red to 70% opacity on all items */
-#mainWrap a:hover, #mainWrap a:focus {
+#mainWrap a:hover,
+#mainWrap a:focus {
     opacity: 0.7;
     color: #0088ce;
 }
@@ -87,7 +99,8 @@ a {
     cursor: default;
 }
 
-#mainWrap a.disabled:hover, #mainWrap a.disabled:focus {
+#mainWrap a.disabled:hover,
+#mainWrap a.disabled:focus {
     text-decoration: none;
     opacity: 0.29;
 }
@@ -97,31 +110,28 @@ li {
 }
 
 h1 {
-	/* Headline One: */
-    font-family: HelveticaNeue-Thin,Helvetica,"Droid Sans",Arial,Sans-serif;
-    /*font-size: 31px;*/
+    font-family: HelveticaNeue-Thin, Helvetica, "Droid Sans", Arial, Sans-serif;
     font-size: 26px;
-    font-weight:100;
-    color: #434C50;
-    /*line-height: 38px;*/
+    font-weight: 100;
+    color: #434c50;
     line-height: 29px;
 }
 
 h1 .weak {
    font-size: 14px;
-} 
+}
 
 h2 {
 	font-size: 17px;
-    font-weight:500;
-    color: #434C50;
+    font-weight: 500;
+    color: #434c50;
     line-height: 21px;
 }
 
 h3 {
     font-size: 15px;
-    font-weight:500;
-    color: #434C50;
+    font-weight: 500;
+    color: #434c50;
     line-height: 18px;
 }
 
@@ -140,8 +150,8 @@ h3.sectionHeader {
 }
 
 #mainBody {
-    clear:both;
-    margin-left:175px;
+    clear: both;
+    margin-left: 175px;
 }
 
 .clear {
@@ -149,31 +159,27 @@ h3.sectionHeader {
 }
 
 #mainContent {
-    float:left;
-    width:100%;
-    overflow:hidden;
+    float: left;
+    width: 100%;
+    overflow: hidden;
 }
 
 #mainContent > div {
     margin-bottom: 2em;
 }
 
-/*
- * These styles are for the footer
- */
-
-* {margin:0;padding:0;} 
-
 /* must declare 0 margins on everything, also for main layout components use padding, not 
 vertical margins (top and bottom) to add spacing, else those margins get added to total height 
 and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
 
-html, body, #mainWrap {
+html,
+body,
+#mainWrap {
     height: 100%;
 }
 
 body > #mainWrap {
-    height: auto; 
+    height: auto;
     min-height: 100%;
 }
 
@@ -185,41 +191,30 @@ body > #mainWrap {
     position: relative;
 	margin-top: -36px; /* negative value of footer height */
 	height: 28px;
-	clear:both;
+	clear: both;
     z-index: 101;
     border-top: thin solid lightgray;
     width: 100%;
     left: 0;
-    background: #F9F9F9;
+    background: #f9f9f9;
     padding-top: 7px;
     color: gray;
-    bottom: 0em;
+    bottom: 0;
 }
 
 #mainFooterContainer {
     padding-left: 20px;
 }
 
-/* CLEAR FIX*/
-.clearfix:after {content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;}
-.clearfix {display: inline-block;}
-/* Hides from IE-mac \*/
-* html .clearfix { height: 1%;}
-.clearfix {display: block;}
-/* End hide from IE-mac */
-
 /*
    Main header styles
  */
 #mainHeader a:hover {
-    color: #969E47;
+    color: #969e47;
 }
 
-#mainHeaderContainer, #loginHeaderContainer {
+#mainHeaderContainer,
+#loginHeaderContainer {
     position: relative;
 }
 
@@ -229,7 +224,8 @@ body > #mainWrap {
     margin-right: 1em;
 }
 
-#headerleft, #loginHeaderleft {
+#headerleft,
+#loginHeaderleft {
     position: absolute;
     left: 0;
     top: 0;
@@ -249,7 +245,8 @@ body > #mainWrap {
     text-align: right;
 }
 
-#headerlogo, #loginheaderlogo {
+#headerlogo,
+#loginheaderlogo {
     width: 54px;
     height: 55px;
     margin-left: 15px;
@@ -258,7 +255,7 @@ body > #mainWrap {
 .headertitle {
     color: white;
     display: block;
-    font-family: Arial,Sans-serif;
+    font-family: Arial, Sans-serif;
     font-size: 18px;
     left: 60px;
     position: relative;
@@ -316,11 +313,9 @@ body > #mainWrap {
     text-indent: 20px;
     background: lightgray;
     display: block;
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
     width: 100%;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
+    border-radius: 4px;
     border-bottom: thin solid lightgray;
     margin-bottom: -1px;
     font-weight: bold;
@@ -328,11 +323,11 @@ body > #mainWrap {
 
 .main-menuSectItem {
     text-indent: 20px;
-    background: #F1F1F1 url('images/arrows.png') no-repeat scroll 0 -128px;
+    background: #f1f1f1 url('images/arrows.png') no-repeat scroll 0 -128px;
 }
 
 .main-menuSectItemExpanded {
-    background: #F1F1F1 url('images/arrows.png') no-repeat scroll 0 8px;
+    background: #f1f1f1 url('images/arrows.png') no-repeat scroll 0 8px;
 }
 
 .main-menuItem {
@@ -352,7 +347,7 @@ button {
     border-radius: 3px;
     margin-top: -3px;
     display: inline-block;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.42857;
@@ -462,7 +457,7 @@ button {
    Form section titles
  */
 .sectionTitle {
-    background-color: #EDEEEC;
+    background-color: #edeeec;
     color: black;
     font-size: 16px;
     margin-top: 14px;
@@ -472,10 +467,7 @@ button {
     text-indent: 0.2em;
     width: 680px;
     line-height: 28px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
-    -moz-box-shadow: 0 2px 2px #C8C8C8;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -497,18 +489,19 @@ button {
 /*
    Expadable section titles
  */
-h2.sectionTitle.expandable, h3.subSectionTitle.expandable {
+h2.sectionTitle.expandable,
+h3.subSectionTitle.expandable {
     cursor: pointer;
-    color: #0000AA;
+    color: #00a;
     text-indent: 20px;
 }
 
 h2.sectionTitle.expandable {
-    background: #EDEEEC url('images/arrows.png') no-repeat scroll 0 -128px;
+    background: #edeeec url('images/arrows.png') no-repeat scroll 0 -128px;
 }
 
 h2.sectionTitle.expandable.expanded {
-    background: #EDEEEC url('images/arrows.png') no-repeat scroll 0 8px;
+    background: #edeeec url('images/arrows.png') no-repeat scroll 0 8px;
 }
 
 h3.subSectionTitle.expandable {
@@ -523,7 +516,7 @@ h3.subSectionTitle.expandable.expanded {
    Weak text is often used for explainations or other text that isn't the focus of the page
  */
 .weak {
-    color:gray;
+    color: gray;
 }
 
 .weak button {
@@ -535,16 +528,14 @@ h3.subSectionTitle.expandable.expanded {
    The styles for the fatal error message panel
  */
 #errorpanel {
-    background: #E6E6E6;
+    background: #e6e6e6;
     border: thin solid darkgray;
     font-size: 18px;
     line-height: 28px;
-    color: #E00000;
+    color: #e00000;
     position: relative;
     padding: 1em;
-    -webkit-border-radius:6px;
-    -moz-border-radius:6px;
-    border-radius:6px;
+    border-radius: 6px;
     margin-right: 2em;
     display: none;
 }
@@ -568,15 +559,13 @@ h3.subSectionTitle.expandable.expanded {
 }
 
 #pagewarningpanel {
-    background: #E6E6E6;
+    background: #e6e6e6;
     border: thin solid darkgray;
     font-size: 18px;
     line-height: 28px;
     position: relative;
     padding: 1.5em;
-    -webkit-border-radius:6px;
-    -moz-border-radius:6px;
-    border-radius:6px;
+    border-radius: 6px;
     margin-right: 2em;
     top: 50px;
     display: none;
@@ -585,12 +574,12 @@ h3.subSectionTitle.expandable.expanded {
 
 .copyrightsymbol {
     font-size: 9px;
-    font-family: Verdana,Arial,Sans-serif;
+    font-family: Verdana, Arial, Sans-serif;
 }
 
 /* For sliding grid */
 .cell {
-    border: 1px solid #DFDFDF;
+    border: 1px solid #dfdfdf;
     border-radius: 3px;
     padding: 10px;
 }
@@ -601,11 +590,14 @@ h3.subSectionTitle.expandable.expanded {
  */
  
 input::-ms-clear {
-  width : 0;
+  width: 0;
   height: 0;
 }
 
-.dialogformsection input[type="text"],.dialogformsection textarea, .formcontrolssection input[type="text"],.formcontrolssection textarea {
+.dialogformsection input[type="text"],
+.dialogformsection textarea,
+.formcontrolssection input[type="text"],
+.formcontrolssection textarea {
      width: 320px;
  }
 
@@ -618,7 +610,7 @@ input::-ms-clear {
     top: 15px;
 	left: 0;
 	clear: both;
-	padding-bottom: 105px; /*so footer doesn't overlap anything on the bottom */
+	padding-bottom: 105px; /* so footer doesn't overlap anything on the bottom */
     margin-left: 40px;
     margin-right: 100px;
 }
@@ -644,7 +636,7 @@ strong {
 }
 
 em {
-    font-style:italic;
+    font-style: italic;
 }
 
 .expandingArea {
@@ -655,12 +647,12 @@ em {
 
 .expandingArea.active > pre {
     line-height: 14px;
-    width: 310px; /*same as computed width of textarea*/
+    width: 310px; /* same as computed width of textarea */
 }
 
 .expandingArea.active > textarea {
-    border: thin solid #CCCCCC;
-    border-radius: 4px 4px 4px 4px;
+    border: thin solid #ccc;
+    border-radius: 4px;
     height: 102%;
     padding-bottom: 3px;
 }
@@ -678,12 +670,12 @@ em {
 }
 
 div.longMessagePanel {
-    background: #FFFFE0;
+    background: #ffffe0;
     border-style: solid;
     border-width: 1px;
-    border-color: #E6DB55;
+    border-color: #e6eb55;
     line-height: 28px;
-    color: #333333;
+    color: #333;
     position: relative;
     padding: 1em;
     border-radius: 6px;
@@ -699,14 +691,15 @@ li.dialogformrow div.longMessagePanel {
     overflow: auto;
 }
 
-div.longMessagePanel a.closeAnchor, div.errorDetailsPanel a.closeAnchor, #errorpanel_hide {
+div.longMessagePanel a.closeAnchor,
+div.errorDetailsPanel a.closeAnchor,
+#errorpanel_hide {
     position: absolute;
     top: 5px;
     right: 5px;
     display: block;
     width: 10px;
     height: 10px;
-    
     background: url("images/icon_X.png") no-repeat scroll transparent;
-	background-size:10px;
+	background-size: 10px;
 }
