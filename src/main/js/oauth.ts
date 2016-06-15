@@ -11,7 +11,7 @@ declare var _;
 declare var $;
 declare var angular;
  
-module gromit_request {
+export module gromit_oauth {
     var reqs = [];
     var oauthCallback: Function;
     var oauthstate: string;
@@ -199,7 +199,7 @@ module gromit_request {
     /**
      * @private
      */
-    function requestPromise(req: any) : any {
+    export function requestPromise(req: any) : any {
         return request(req);
     };
 
