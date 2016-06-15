@@ -661,6 +661,10 @@ export module gromit {
     export function clearTokenType(): void {
         delete g.tokenType;
     }
+
+    export declare var AuthUrl: string;
+    export declare var AuthLogoutUrl: string;
+    export declare var ClientId: string;
     
     
 };

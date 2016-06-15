@@ -28,38 +28,38 @@ Description:    for more information see http://www.zackgrossbart.com/hackito/sl
 
 declare var $;
 
- namespace gromit {
-     var hasDrawn = false;
-     var windowWidth = 0;
-     var cellWidth = 250;
-     var cellHeight = 150;
-     var padding = 30;
-     var gridOffset = 0;
-     var inResize = false;
+export module gromit_grid {
+    var hasDrawn = false;
+    var windowWidth = 0;
+    var cellWidth = 250;
+    var cellHeight = 150;
+    var padding = 30;
+    var gridOffset = 0;
+    var inResize = false;
 
-     interface jQuery {
-         animate(Object, number, string)
-         css(Object)         
-     }
-
-     class Cell {
-         left: number;
-         top: number;
-     }
-
-     /**
-      * Adds a specific cell to the set of used cells.  Used cells are skipped 
-      * when laying cells out in the future.
-      * 
-      * @param usedCells the array of used cells
-      * @param col       the column of the used cell
-      * @param row       the row of the used cell
-      */
-    function setUsed(usedCells: Cell[], col: number, row: number) : void {
-        var index = usedCells.length;
-        
-        usedCells[index] = { left: col, top: row};
+    interface jQuery {
+        animate(Object, number, string)
+        css(Object)         
     }
+
+    class Cell {
+        left: number;
+        top: number;
+    }
+
+    /**
+     * Adds a specific cell to the set of used cells.  Used cells are skipped 
+     * when laying cells out in the future.
+     * 
+     * @param usedCells the array of used cells
+     * @param col       the column of the used cell
+     * @param row       the row of the used cell
+     */
+   function setUsed(usedCells: Cell[], col: number, row: number) : void {
+       var index = usedCells.length;
+       
+       usedCells[index] = { left: col, top: row};
+   }
 
     /**
      * Lets you know if a specific column and row index has already been used.
