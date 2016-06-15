@@ -5,6 +5,25 @@
  *
  ******************************************************************************/
 
+
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+        url 'http://oss.sonatype.org/content/groups/public'
+    }
+  }
+  dependencies {
+    classpath 'com.eriwen:gradle-js-plugin:1.12.0'
+    classpath 'com.eriwen:gradle-css-plugin:1.11.1'
+  }
+}
+
+plugins {
+  id "com.moowork.node" version "0.12"
+  id "de.richsource.gradle.plugins.typescript" version "1.8.0"
+}
+
 defaultTasks 'jar', 'distZip2'
 
 apply plugin: 'checkstyle'
@@ -36,35 +55,42 @@ artifacts {
     archives jar
 }
 
+import com.moowork.gradle.node.NodeExtension
+import com.moowork.gradle.node.variant.VariantBuilder
+
+node {
+  download = true
+}
+
+compileTypeScript {
+    sourcemap = true
+}
+
+String nodeExecutable() {
+  NodeExtension nodeExt = NodeExtension.get(project)
+  return new VariantBuilder(nodeExt).build().nodeExec
+}
+
+compileTypeScript {
+  compilerExecutable "${nodeExecutable()} node_modules/typescript/lib/tsc.js"
+  dependsOn "npmInstall"
+}
+
 /*
  * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
  * dependencies where we must load some files ahead of others.  This section specifies the file tree in a specific
  * order so our JavaScript dependencies are loaded properly in the index.html file.
  */
-FileCollection jsFiles = files('src/main/js/gromit.js', 'src/main/js/rest.js', 'src/main/js/util.js', 'src/main/js/oauth.js', 'src/main/js/services/i18n/localizationService-en.js')
+FileCollection jsFiles = files('src/main/js/services/i18n/localizationService-en.js')
     
 jsFiles = jsFiles + fileTree(
     dir: 'src/main/js', 
-    includes: ['*.js'],
-    excludes: ['iac.js', 'rest.js', 'util.js', 'oauth.js', 'main.js'])
+    includes: ['*.js'])
     
 jsFiles = jsFiles + fileTree(
     dir: 'src/main/js', 
     includes: ['directives/**', 'services/**'], 
     excludes: ['**/services/i18n/*'])
-    
-buildscript {
-  repositories {
-    mavenCentral()
-    maven {
-        url 'http://oss.sonatype.org/content/groups/public'
-    }
-  }
-  dependencies {
-    classpath 'com.eriwen:gradle-js-plugin:1.12.0'
-    classpath 'com.eriwen:gradle-css-plugin:1.11.1'
-  }
-}
 
 apply plugin: "com.eriwen.gradle.js"
 apply plugin: 'css'
@@ -155,34 +181,6 @@ checkstyle {
     configFile new File(rootDir, 'src/build/config/checkstyle_checks.xml')
 }
 
-/*
- * We want to call JSHint on the command line so we can use the NodeJS version
- * of it.
- */
-task jsHint(type:Exec) {
-	doFirst() {
-	    println ':jsHint'
-	}
-    description = 'This task handles calling JSHint for the JavaScript files in the project.'
-    ignoreExitValue = true
-    
-	
-	if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)) {
-		commandLine 'cmd', '/c', 'jshint'
-	} else {
-		workingDir '.'
-		executable 'jshint'
-	}
-    args jsFiles
-	
-	logger.info('jsHint commandLine: ' + commandLine)
-    doLast {
-        if (execResult.exitValue != 0) {
-            throw new GradleScriptException("There were JSHint errors.  Look above and fix the issues.", null);
-        }
-    }
-}
-
 task distZip2(type: Jar) {
     from('.') {
         include 'LICENSE.txt'
@@ -213,6 +211,16 @@ task distZip2(type: Jar) {
         include '**/*'
         into 'html'
     }
+
+    from('src/main/ts') {
+        include '**/*'
+        into 'ts'
+    }
+
+    from('build/ts') {
+        include '**/*'
+        into 'js'
+    }
 }
 
 clean {
@@ -229,7 +237,7 @@ compileJava.doFirst {
 }
 
 jar.doFirst {
-    tasks.jsHint.execute()
+    tasks.compileTypeScript.execute()
     tasks.minifyJs.execute()
     tasks.concatLibFiles.execute()
     tasks.gzipJs.execute()
