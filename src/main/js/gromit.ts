@@ -19,7 +19,7 @@ declare var humanMsg;
  * variables and utility functions
  */
 /*global gromit:true */
-namespace gromit {
+export module gromit {
 
     class gromit {
         wideCSS: any;
@@ -612,6 +612,54 @@ namespace gromit {
 
     export function isNumber(n: any) : boolean {
         return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    /**************************************************
+     * 
+     * This is the start of the exported security functions
+     * 
+     **************************************************/
+
+    /**
+     * Get the current security token
+     */    
+    export function getToken() : string {
+        return g.token;
+    }
+
+    /**
+     * Set the current security token
+     */    
+    export function setToken(token: string): void {
+        g.token = token;
+    }
+
+    /**
+     * Clear out the token
+     */    
+    export function clearToken(): void {
+        delete g.token;
+    }
+
+    /**
+     * Get the current security token type
+     */    
+    export function getTokenType() : string {
+        return g.tokenType;
+    }
+
+    /**
+     * Set the current security token type
+     */    
+    export function setTokenType(tokenType: string): void {
+        g.tokenType = tokenType;
+    }
+
+    /**
+     * Clear out the token type
+     */    
+    export function clearTokenType(): void {
+        delete g.tokenType;
     }
     
     
