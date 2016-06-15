@@ -146,6 +146,12 @@ namespace gromit {
 
     var g = new gromit();
 
+    /**************************************************
+     * 
+     * This is the start of the exported utility functions
+     * 
+     **************************************************/
+
     /**
      * This will be the localization object set up by the localization service.
      * It can be used to access localized strings from JavaScript.
