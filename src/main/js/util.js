@@ -192,6 +192,20 @@ gromit.logWarning = function(/*String*/ text) {
 };
 
 /**
+ * Convert long dateTime to GMT timezone
+ */
+gromit.GMTDate = function(/*int*/ dateTime) {
+    // UTC offset
+    var offset = moment().utcOffset();
+    if (moment().isDST()) {
+        offset = offset - 60;
+    }
+    // milliseconds
+    offset = offset*60*1000;
+    return dateTime + offset;
+};
+
+/**
  * Get a string representing the full format of the date and time represented by the specified number.
  */
 gromit.fullDateTimeFormat = function(/*int*/ epoch) {
