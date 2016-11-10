@@ -2,3 +2,4 @@
 /build
 gradle.properties
 .DS_Store
+node_modules

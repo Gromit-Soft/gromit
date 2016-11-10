@@ -235,12 +235,8 @@ gromit.doLogin = function(/*Object*/ req) {
  */
 gromit.doLogout = function() {
     var redirectTo = window.location.protocol + '//' + window.location.host + window.location.pathname;
-    $.cookie('gromitTokenCookie', null, {
-        path: '/'
-    });
-    $.cookie('gromitTokenTypeCookie', null, {
-        path: '/'
-    });
+    $.cookie('gromitTokenCookie', null);
+    $.cookie('gromitTokenTypeCookie', null);
     
     if (gromit.isEmpty(gromit.AuthLogoutUrl)) {
         throw 'Unable to log out without gromit.AuthLogoutUrl';

@@ -30,7 +30,7 @@ dependencies {
     provided 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
 }
 
-sourceSets.main.compileClasspath += [configurations.provided]
+sourceSets.main.compileClasspath = files(sourceSets.main.compileClasspath, [configurations.provided])
 
 artifacts {
     archives jar
