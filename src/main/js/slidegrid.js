@@ -263,7 +263,7 @@ var slidegrid = {
              * height tags within it.
              */
             var height = 0;
-            if ((count % cols) !== 1) {
+            if (cols > 1 && (count % cols) !== 1) {
                 height = y + cellHeight + padding;
             } else {
                 height = y + padding;
