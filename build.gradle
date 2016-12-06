@@ -111,9 +111,6 @@ class ConcatFiles extends DefaultTask {
 task concatLibFiles(type: ConcatFiles) {
     files = files(
         'src/main/js/lib/underscore-min.js',
-        'src/main/js/lib/Markdown.Converter.js',
-        'src/main/js/lib/Markdown.Sanitizer.js',
-        'src/main/js/lib/Markdown.Editor.js',
         'src/main/js/lib/moment-with-locales.min.js',
         'src/main/js/lib/require.js',
         'build/js/gromit-min.js')
