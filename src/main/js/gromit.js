@@ -85,6 +85,7 @@ var gromit = {
         var localeData = moment.localeData();
 
         gromit.token = $.cookie('gromitTokenCookie');
+        gromit.println('gromit.token: ' + gromit.token);
         gromit.tokenType = $.cookie('gromitTokenTypeCookie');
 
         if (gromit.debugMode) {
