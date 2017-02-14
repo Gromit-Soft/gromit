@@ -236,6 +236,11 @@ jar.doFirst {
     tasks.gzipCss.execute()
 }
 
+jar {
+    baseName "gromit"
+}
+
+
 /*
  * We want to install the JAR into the local Maven cache when you build it
  */
