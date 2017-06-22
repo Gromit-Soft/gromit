@@ -108,21 +108,21 @@ var slidegrid = {
         slidegrid.padding = padding;
         slidegrid.gridOffset = gridOffset;
         
-        var x = padding / 2;
-        var y = 0;
-        var count = 1;
-        
-        /* 
-         * When we add a "bigcell" to the grid it takes up four cells instead of one. 
-         * That makes we need to not add any other cells to those areas or the cells 
-         * will overlap.  These three variables are used to remember the cells used 
-         * by big cells. 
-         */
-        var curCol = 0;
-        var curRow = 0;
-        var usedCells = [];
-        
         $('.slidegrid').each(function() {
+            var x = padding / 2;
+            var y = 0;
+            var count = 1;
+        
+            /* 
+             * When we add a "bigcell" to the grid it takes up four cells instead of one. 
+             * That makes we need to not add any other cells to those areas or the cells 
+             * will overlap.  These three variables are used to remember the cells used 
+             * by big cells. 
+             */
+            var curCol = 0;
+            var curRow = 0;
+            var usedCells = [];
+            
             var hasTallCell = false;
             
             var cols = Math.floor(($(this).parent().parent().width()) / ((cellWidth + padding)));
@@ -263,7 +263,7 @@ var slidegrid = {
              * height tags within it.
              */
             var height = 0;
-            if ((count % cols) !== 1) {
+            if (cols > 1 && (count % cols) !== 1) {
                 height = y + cellHeight + padding;
             } else {
                 height = y + padding;

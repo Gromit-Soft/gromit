@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
-version = '1.0.1-SNAPSHOT'
+version = '1.0.3-SNAPSHOT'
 
 
 repositories {
@@ -30,7 +30,7 @@ dependencies {
     provided 'org.apache.tomcat:tomcat-servlet-api:7.0.37'
 }
 
-sourceSets.main.compileClasspath += [configurations.provided]
+sourceSets.main.compileClasspath = files(sourceSets.main.compileClasspath, [configurations.provided])
 
 artifacts {
     archives jar
@@ -111,9 +111,6 @@ class ConcatFiles extends DefaultTask {
 task concatLibFiles(type: ConcatFiles) {
     files = files(
         'src/main/js/lib/underscore-min.js',
-        'src/main/js/lib/Markdown.Converter.js',
-        'src/main/js/lib/Markdown.Sanitizer.js',
-        'src/main/js/lib/Markdown.Editor.js',
         'src/main/js/lib/moment-with-locales.min.js',
         'src/main/js/lib/require.js',
         'build/js/gromit-min.js')
@@ -238,6 +235,11 @@ jar.doFirst {
     tasks.minifyCss.execute()
     tasks.gzipCss.execute()
 }
+
+jar {
+    baseName "gromit"
+}
+
 
 /*
  * We want to install the JAR into the local Maven cache when you build it

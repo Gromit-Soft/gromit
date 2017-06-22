@@ -212,10 +212,10 @@ gromit.doLogin = function(/*Object*/ req) {
     
     gromit.oAuthAuthenticate(gromit.AuthUrl, function(/*String*/ token, /*String*/ type) {
         gromit.token = token;
-        $.cookie('gromitTokenCookie', token);
+        $.cookie('gromitTokenCookie', token, { path: '/' });
 
         gromit.tokenType = type;
-        $.cookie('gromitTokenTypeCookie', type);
+        $.cookie('gromitTokenTypeCookie', type, { path: '/' });
 
         /*
          * Now we want to replay all of the existing requests which have come in while
@@ -235,12 +235,8 @@ gromit.doLogin = function(/*Object*/ req) {
  */
 gromit.doLogout = function() {
     var redirectTo = window.location.protocol + '//' + window.location.host + window.location.pathname;
-    $.cookie('gromitTokenCookie', null, {
-        path: '/'
-    });
-    $.cookie('gromitTokenTypeCookie', null, {
-        path: '/'
-    });
+    $.cookie('gromitTokenCookie', null, { path: '/' });
+    $.cookie('gromitTokenTypeCookie', null, { path: '/' });
     
     if (gromit.isEmpty(gromit.AuthLogoutUrl)) {
         throw 'Unable to log out without gromit.AuthLogoutUrl';
