@@ -85,6 +85,35 @@ gromit.getPromise = function(/*String*/ url, /*Angular HTTP object*/ http, /*fun
 };
 
 /**
+ * POST multipart data to the server
+ *
+ * @param url the URL of the resource
+ * @param http the Angular HTTP object to make the request with
+ * @param data the form data to send to the server  (file: file, data: jsondata}
+ * @param successCallback the function that will be called back with the data
+ * @param errorCallback the function that will be called back if the request fails
+ * @param unknownErrorCallback the function that will be called back if the request fails
+ */
+gromit.postMultipart = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ data, /*function*/ successCallback,
+                                /*function*/ errorCallback, /*function*/ unknownErrorCallback) {
+    var req = {
+        method: 'POST',
+        url: url,
+        data: data,
+        transformRequest: angular.identity,
+        headers: {
+            'Content-Type': undefined
+        }
+    };
+
+    req.http = http;
+    req.successCallback = successCallback;
+    req.errorCallback = errorCallback;
+    req.unknownErrorCallback = unknownErrorCallback;
+    gromit.doRequest(req);
+};
+
+/**
  * POST to GET a specified JSON resource as a promise from the server.
  * Used only for typeahead that require post for searchCriteria
  *
@@ -174,6 +203,35 @@ gromit.postInBackground = function(/*String*/ url, /*Angular HTTP object*/ http,
         data: data,
         isBackground: true
     }, http, successCallback, errorCallback, unknownErrorCallback);
+};
+
+/**
+ * PUT multipart data to the server
+ *
+ * @param url the URL of the resource
+ * @param http the Angular HTTP object to make the request with
+ * @param data the form data to send to the server  (file: file, data: jsondata}
+ * @param successCallback the function that will be called back with the data
+ * @param errorCallback the function that will be called back if the request fails
+ * @param unknownErrorCallback the function that will be called back if the request fails
+ */
+gromit.putMultipart = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ data, /*function*/ successCallback,
+                               /*function*/ errorCallback, /*function*/ unknownErrorCallback) {
+    var req = {
+        method: 'PUT',
+        url: url,
+        data: data,
+        transformRequest: angular.identity,
+        headers: {
+            'Content-Type': undefined
+        }
+    };
+
+    req.http = http;
+    req.successCallback = successCallback;
+    req.errorCallback = errorCallback;
+    req.unknownErrorCallback = unknownErrorCallback;
+    gromit.doRequest(req);
 };
 
 /**
