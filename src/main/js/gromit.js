@@ -55,6 +55,7 @@ var gromit = {
      */
     init: function() {
         if (gromit.bestLocale) {
+            
             if (gromit.bestLocale.indexOf('_#') !== -1) {
                 /*
                  * This means that the browser determined one of the new compound
@@ -67,10 +68,10 @@ var gromit = {
             moment.locale(gromit.bestLocale);
 
             /* 
-             * We want to specify the formats for the short dates in English
+             * We want to specify the formats for the short dates in US English
              * so they don't have the starting zero.
              */
-            if (gromit.bestLocale.indexOf('en') === 0) {
+            if (gromit.bestLocale.toLowerCase() === 'en' || gromit.bestLocale.toLowerCase() === 'en_US') {
                 moment.locale('en', {
                     longDateFormat: {
                         L: 'M/D/YYYY',
