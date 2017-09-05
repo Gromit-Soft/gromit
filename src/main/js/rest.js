@@ -85,7 +85,9 @@ gromit.getPromise = function(/*String*/ url, /*Angular HTTP object*/ http, /*fun
 };
 
 /**
- * POST multipart data to the server
+ * POST multipart data to the server.  This function works like the normal post function, but
+ * it explicitely unsets the Content-Type header and does not set the Accept header to allow for 
+ * other data types in addition to JSON.
  *
  * @param url the URL of the resource
  * @param http the Angular HTTP object to make the request with
@@ -206,7 +208,9 @@ gromit.postInBackground = function(/*String*/ url, /*Angular HTTP object*/ http,
 };
 
 /**
- * PUT multipart data to the server
+ * PUT multipart data to the server.  This function works like the normal put function, but
+ * it explicitely unsets the Content-Type header and does not set the Accept header to allow for 
+ * other data types in addition to JSON.
  *
  * @param url the URL of the resource
  * @param http the Angular HTTP object to make the request with
