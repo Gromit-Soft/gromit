@@ -49,9 +49,9 @@ artifacts {
 }
 
 
-signing {
+/*signing {
     sign configurations.archives
-}
+}*/
 
 
 /*
