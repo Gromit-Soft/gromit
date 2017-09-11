@@ -3,3 +3,4 @@
 gradle.properties
 .DS_Store
 node_modules
+secring.gpg
