@@ -1,0 +1,25 @@
+# 
+# This file defines the credentials you need to deploy the project artifacts
+# to the Nexus server.  You don't need to provide the credentials in order to
+# build the project, but you do need them to deploy.
+#
+# To use this file copy it to a file named gradle.properties and place it either
+# in the project directory or in your ~/.gradle directory if you want this information
+# to be available for other projects.
+
+
+# This is the credentials used to deploy snapshot versions.  These properties should
+# only be uses by the Micro Focus Jenkins server.
+envDeployUser=Micro Focus Nexus username
+envDeployPass=Micro Focus Nexus password
+
+# These properties are used for signing artifacts before deploying final versions to the 
+# Sonatype Nexus server so they can be synchronized to Maven Central.
+signing.keyId=The ID of the public key
+signing.password=The password for the keyring
+signing.secretKeyRingFile=The location of the keyring file
+
+# These properties are the credentials for the Sonatype Nexus server.
+ossrhUsername=Sonatype Nexus username
+ossrhPassword=Sonatype Nexus password
+
