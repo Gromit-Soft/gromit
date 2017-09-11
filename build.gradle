@@ -48,12 +48,6 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-
-/*signing {
-    sign configurations.archives
-}*/
-
-
 /*
  * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
  * dependencies where we must load some files ahead of others.  This section specifies the file tree in a specific
@@ -106,8 +100,7 @@ gzipJs {
 
 /*
  * This is a little class and task that can concatenate files.  We use it to bundle all 
- * of our JavaScript libraries into a single file.  Ideally we should be GZIPing the bundle
- * as well, but I haven't had time for that part yet.
+ * of our JavaScript libraries into a single file.  
  */
 class ConcatFiles extends DefaultTask {
     @InputFiles
@@ -287,7 +280,20 @@ uploadArchives.doFirst {
     }   
 }
 
+/*************************************************************************************
+ * This section exists for deploying to the Sonatype Nexus which syncs with Maven
+ * Central.  We only us this configuration for final release versions.  Snapshot
+ * release versions are deployed to the MicroFocus internal Nexus server.
+ *
+ * When you want to do a final release version you must comment out the uploadArchives
+ * task above and uncomment the signing and uploadArchive tasks below.
+ **************************************************************************************/
+
 /*
+signing {
+    sign configurations.archives
+}
+
 uploadArchives {
   repositories {
     mavenDeployer {
