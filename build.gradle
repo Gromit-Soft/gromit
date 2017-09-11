@@ -1,7 +1,7 @@
 /*******************************************************************************
  * 
  * MIT License
- * Copyright (c) 2015-2016 NetIQ Corporation, a Micro Focus company
+ * Copyright (c) 2015-2017 NetIQ Corporation, a Micro Focus company
  *
  ******************************************************************************/
 
@@ -10,16 +10,28 @@ defaultTasks 'jar', 'distZip2'
 apply plugin: 'checkstyle'
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'signing'
+
 
 group = 'org.gromitsoft'
 version = '1.0.4-SNAPSHOT'
-
+archivesBaseName = 'gromit'
 
 repositories {
     mavenCentral()
     maven {
         url 'http://oss.sonatype.org/content/groups/public'
     }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 configurations {
@@ -33,8 +45,14 @@ dependencies {
 sourceSets.main.compileClasspath = files(sourceSets.main.compileClasspath, [configurations.provided])
 
 artifacts {
-    archives jar
+    archives javadocJar, sourcesJar
 }
+
+
+signing {
+    sign configurations.archives
+}
+
 
 /*
  * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
@@ -226,6 +244,8 @@ compileJava.doFirst {
 }
 
 jar.doFirst {
+    tasks.javadocJar.execute()
+    tasks.sourcesJar.execute()
     tasks.jsHint.execute()
     tasks.minifyJs.execute()
     tasks.concatLibFiles.execute()
@@ -266,3 +286,60 @@ uploadArchives.doFirst {
         throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
     }   
 }
+
+/*
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Gromit'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'A compellingly useful set of utilities for AngularJS and oAuth2.'
+        url 'https://github.com/Gromit-Soft/gromit'
+
+        scm {
+          connection 'scm:git:https://github.com/Gromit-Soft/gromit.git'
+          developerConnection 'scm:git:https://github.com/Gromit-Soft/gromit.git'
+          url 'https://github.com/Gromit-Soft/gromit'
+        }
+
+        licenses {
+          license {
+            name 'MIT License'
+            url 'https://opensource.org/licenses/MIT'
+          }
+        }
+
+        developers {
+          developer {
+            id 'zgrossbart'
+            name 'Zack Grossbart'
+            email 'zack@grossbart.com'
+          }
+        }
+      }
+    }
+  }
+}
+
+signArchives.doFirst {
+    tasks.distZip2.execute();
+}
+
+uploadArchives.doFirst {
+    if (!project.hasProperty('ossrhUsername')) {
+        throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
+    }
+}
+*/
