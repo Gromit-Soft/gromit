@@ -25,30 +25,11 @@ var gromit = {
     errorFeedback: 'error',
     validFeedback: 'valid',
     warningFeedback: 'warning',
-
+    
     /**
-     * @private
+     * This value controles if gromit will add CSS to the project or not.
      */
-    addWideStyle: function() {
-        if ($(window).width() >= 1400 &&
-            !gromit.wideCSS) {
-            gromit.wideCSS = gromit.addCSSLink('gromit/css/uncompressed_css/client.wide.css');
-            return;
-        }
-
-        if (gromit.wideCSS &&
-            $(window).width() <= 1400) {
-            gromit.wideCSS.remove();
-            delete gromit.wideCSS;
-        }
-    },
-
-    /**
-     * @private
-     */
-    updateStyles: function() {
-        gromit.addWideStyle();
-    },
+    addCSS: true,
 
     /**
      * @private
@@ -88,40 +69,17 @@ var gromit = {
         gromit.token = $.cookie('gromitTokenCookie');
         gromit.tokenType = $.cookie('gromitTokenTypeCookie');
 
-        if (gromit.debugMode) {
-            gromit.addCSSLink('gromit/css/humanMsg.css');
-            gromit.addCSSLink('gromit/css/reset.css');
-            gromit.addCSSLink('gromit/css/coreui.css');
-        } else {
-            gromit.addCSSLink('gromit/css/gromit-all-min.css');
+        if (gromit.addCSS) {
+            if (gromit.debugMode) {
+                gromit.addCSSLink('gromit/css/humanMsg.css');
+                gromit.addCSSLink('gromit/css/reset.css');
+                gromit.addCSSLink('gromit/css/coreui.css');
+            } else {
+                gromit.addCSSLink('gromit/css/gromit-all-min.css');
+            }
         }
 
         gromit.isiPad = navigator.userAgent.match(/iPad/i) !== null;
-
-        /*
-         * Almost all of our CSS is in coreui.css, but there are always a few
-         * tweaks you need to add for IE. This special style sheet is added only
-         * if the browser is IE and contains just those tweaks.
-         */
-        /*
-         * I'm commenting this out for now so we don't make extra HTTP calls since we don't
-         * have any CSS for specific browsers yet.
-         *
-        var browserType = navigator.userAgent.toLowerCase();
-        if (browserType.indexOf('msie') > -1 || browserType.match(/trident.+rv:11./)) {
-            gromit.addCSSLink('gromit/css/uncompressed_css/msie.css');
-        } else if (browserType.indexOf('chrome') > -1) {
-            gromit.addCSSLink('gromit/css/uncompressed_css/webkit.css');
-        } else if (browserType.indexOf('safari') > -1) {
-            gromit.addCSSLink('gromit/css/uncompressed_css/safari.css');
-        } else if (browserType.indexOf('firefox') > -1) {
-            gromit.addCSSLink('gromit/css/uncompressed_css/firefox.css');
-        }
-        */ 
-
-        if (gromit.isiPad) {
-            gromit.addCSSLink('gromit/css/uncompressed_css/ipad.css');
-        }
         
         /*
          * If the current browser supports canvas then we'll import paper.
@@ -131,21 +89,6 @@ var gromit = {
         } else {
             gromit.hasCanvas = false;
         }
-
-        /*
-         * If the current browser is an iPad then we'll load the script to
-         * enable touch events for JQuery sortable.
-         */
-
-        if (gromit.isiPad) {
-            require(['js/lib/jquery.ui.touch-punch.js'], function() {});
-        }
-
-        gromit.updateStyles();
-
-        $(window).resize(function() {
-            gromit.updateStyles();
-        });
     }
 };
 
