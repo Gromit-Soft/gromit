@@ -67,14 +67,6 @@ gromit.request = function(/*Object*/ req) {
         'declared $http in the definition of your controller.';
     }
 
-    var responsePromise = req.http(req);
-
-    responsePromise.success(function(data, status, headers, config) {
-        if (req.successCallback) {
-            req.successCallback(data, status, headers, config);
-        }
-    });
-
     var validateTime = function() {
         if (!$.cookie('ar-time')) {
             /*
@@ -131,52 +123,64 @@ gromit.request = function(/*Object*/ req) {
             gromit.doLogin(req);
         }
     };
+    
+    var responsePromise = req.http(req);
 
-    responsePromise.error(function(data, status, headers, config) {
-        if (status === 0) {
+    responsePromise.then(function(response) {
+        /*
+         * This is the success callback
+         */
+        if (req.successCallback) {
+            req.successCallback(response.data, response.status, response.headers, response.config);
+        }
+    }, function(response) {
+        /*
+         * This is the error callback
+         */
+        if (response.status === 0) {
             /*
              * This means we weren't able to contact the server at all
              */
             gromit.showFatalError('Unable to contact server at ' + req.url);
-        } else if (data && data.Fault) {
+        } else if (response.data && response.data.Fault) {
             /*
              * This means the server returned a RESTException
              */
-            if (status === 401 &&
-                (data.Fault.Code.Subcode.Value === 'NoCredentials' ||
-                    data.Fault.Code.Subcode.Value === 'Expired')) {
+            if (response.status === 401 &&
+                (response.data.Fault.Code.Subcode.Value === 'NoCredentials' ||
+                    response.data.Fault.Code.Subcode.Value === 'Expired')) {
                 handle401(req);
             } else if (req.errorCallback) {
                 /*
                  * This means it was just a normal RESTException and we want to pass it back
                  * to the calling code.
                  */
-                req.errorCallback(data.Fault.Code.Value, data.Fault.Code.Subcode.Value, data.Fault.Reason.Text);
+                req.errorCallback(response.data.Fault.Code.Value, response.data.Fault.Code.Subcode.Value, response.data.Fault.Reason.Text);
             }
         } else {
             /*
              * This means we got a response from the server which didn't have JSON data
              */
-            if (status === 404) {
+            if (response.status === 404) {
                 /*
                  * If the item wasn't found then we want to send that to the calling code
                  */
                 req.errorCallback('Sender', 'NotFound', '');
-            } else if (status === 401) {
+            } else if (response.status === 401) {
                 handle401(req);
             } else if (req.unknownErrorCallback) {
                 /*
                  * This means they gave us a special handler for generic exceptions
                  */
-                req.unknownErrorCallback(data, status, headers);
+                req.unknownErrorCallback(response.data, response.status, response.headers);
             } else {
-                if (data) {
-                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, data));
+                if (response.data) {
+                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, response.data));
                 } else {
-                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, ''));
+                    gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, ''));
                 }
                 if (window.console) {
-                    console.error(gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, status, data)));
+                    console.error(gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, response.data)));
                 }
             }
         }
