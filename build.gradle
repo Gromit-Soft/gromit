@@ -14,7 +14,7 @@ apply plugin: 'signing'
 
 
 group = 'org.gromitsoft'
-version = '1.0.4'
+version = '1.0.5-SNAPSHOT'
 archivesBaseName = 'gromit'
 
 repositories {
@@ -260,7 +260,7 @@ jar {
 distZip2.doLast {
     tasks.install.execute()
 }
-/*
+
 uploadArchives {
     description = 'This task uploads our artifacts to the Nexus server.'
     if (project.hasProperty('envDeployUser')) {
@@ -278,7 +278,7 @@ uploadArchives.doFirst {
     if (!project.hasProperty('envDeployUser')) {
         throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
     }   
-}*/
+}
 
 /*************************************************************************************
  * This section exists for deploying to the Sonatype Nexus which syncs with Maven
@@ -289,7 +289,7 @@ uploadArchives.doFirst {
  * task above and uncomment the signing and uploadArchive tasks below.
  **************************************************************************************/
 
-
+/*
 signing {
     sign configurations.archives
 }
@@ -348,3 +348,4 @@ uploadArchives.doFirst {
         throw new GradleScriptException("You need to set up the gradle.properties file before you can deploy.  Look at gradle.properties.sample.", null);
     }
 }
+*/
