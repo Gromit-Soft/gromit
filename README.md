@@ -5,6 +5,8 @@ Gromit is primarily an OAuth2 client for AngularJS.  It's focused on the [Micro 
 
 Along with OAuth2 support this library has support for other features like message handling in the UI, date formatting, safe HTML, and specialized CSS property handling.
 
+If you just want to use Gromit then download the latest from the [Sonatype Nexus server](https://oss.sonatype.org/#nexus-search;quick~gromit).
+
 Setting up the Gromit build environment
 --------------------------------------
 
