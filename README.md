@@ -140,17 +140,17 @@ Gromit supports three callback functions.
 
 ```JavaScript
 {
-	"Fault" : { 
-		"Code" : { 
-			"Subcode" : { 
-				"Value" : "MyErrorSubCode" 
-			},
-			"Value" : "MyErrorCode"
-		},
-		"Reason" : { 
-			"Text" : "This is why my error happened" 
-		}
-	} 
+    "Fault": {
+        "Code": {
+            "Subcode": {
+                "Value": "MyErrorSubCode"
+            },
+            "Value": "MyErrorCode"
+        },
+        "Reason": {
+            "Text": "This is why my error happened"
+        }
+    }
 }
 ```
 
