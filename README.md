@@ -6,12 +6,13 @@ Along with OAuth2 support this library has support for other features like messa
 
 There are two additional projects that support Gromit.
 
-  * [Gromit Sample](https://github.com/Gromit-Soft/gromit-sample) - This project shows you how to use Gromit and contains a working example
+  * [Gromit Sample](https://github.com/Gromit-Soft/gromit-sample) - This project shows you how to use Gromit and contains a working example.
   * [Gromit Build](https://github.com/Gromit-Soft/gromit-build) - This project contains Gradle plugins to support Gromit.  These plugins aren't required, but they make things a little easier.
 
-If you just want to use Gromit then download the latest from the [Sonatype Nexus server](https://oss.sonatype.org/#nexus-search;quick~gromit).
-
 ## Using Gromit
+
+If you just want to download Gromit directly then you can get the latest from the [Sonatype Nexus server](https://oss.sonatype.org/#nexus-search;quick~gromit).
+
 
 Gromit is available on Maven Central.  If you are using Maven you can include Gromit as a project dependency like this:
 
@@ -33,7 +34,11 @@ You can also include Gromit in your `package.json` file for an NPM based build. 
 
 ## OAuth2 Client
 
-To use the Gromit OAuth2 client you must configure the following properties:
+The Gromit OAuth2 client handles all logins, token validation and token refreshes seemlessly.  When you make an HTTP request with Gromit the library will handle any 401 responses or other responses indicating that you need a token.  It will then work with the OSP server to get a token and repeat your request.  You will never lose any state of your JavaScript application while this happens.
+
+Gromit also has a request queue for handling multiple requests which all require a token.  In this case Gromit will suspend all the requests until the token is acquired and then replay any requests that happened during that process.
+
+To use the Gromit OAuth2 client you must configure the following three properties:
 
 ```JavaScript
 gromit.ClientId = 'myClientId';
@@ -41,11 +46,11 @@ gromit.AuthUrl = 'http://myserver/osp/a/idm/auth/oauth2/grant';
 gromit.AuthLogoutUrl = 'http://myserver/osp/a/idm/auth/app/logout'; 
 ```
 
-The `ClientId` is the OAuth2 client ID that you have configured.  You will set this client ID during the [configuration of your new SSO client](https://github.com/MicroFocus/CX/tree/master/token-validation#configuring-your-project).
+  * The `ClientId` is the OAuth2 client ID that you have configured.  You will set this client ID during the [configuration of your new SSO client](https://github.com/MicroFocus/CX/tree/master/token-validation#configuring-your-project).
 
-The `AuthUrl` is the location of your OSP server.  This is the URL Gromit will redirect to when getting a token.
+  * The `AuthUrl` is the location of your OSP server.  This is the URL Gromit will redirect to when getting a token.
 
-The `AuthLogoutUrl` is the location of your OSP server logout link.  Gromit redirects to this page for logging out.
+  * The `AuthLogoutUrl` is the location of your OSP server logout link.  Gromit redirects to this page for logging out.
 
 Once you have configured your client you can make HTTP calls to your server with the following functions:  `gromit.get`, `gromit.post`, `gromit.put`, `gromit.del`.  These four functions support an HTTP GET, POST, PUT, and DELETE respectively.  
 
@@ -337,8 +342,9 @@ This must be set before calling the `gromit.init` function.
 
 ## Setting up the Gromit build environment
 
+You don't need to build Gromit to use it, but setting the build is fast and easy.  Having the build running also gives you the chance to get a working example of Gromit up and running quickly.
 
-This project builds with [Gradle](http://gradle.org/gradle-download/).  Download the latest and add it to your path.  I like to create an alias for gradle like this:
+Gromit builds with [Gradle](http://gradle.org/gradle-download/).  Download the latest and add it to your path.  I like to create an alias for the `gradle` command like this:
 
 <code>alias gr='~/bin/gradle-4.1/bin/gradle'</code>
 
@@ -379,7 +385,9 @@ At this point your Gromit sample server will be running on [your local server](h
 
 ## Verifying the gromit-sample build
 
-Once your change is complete you need to run an addition command to run JSHint and verify the build.  You must run this command before you commit your changes to gromit-sample.
+If you are changing the Gromit code then you must run and extra step.  Make your change with the Gradle server running and do whatever testing you need to.
+
+Once your change is complete you must run JSHint and verify the build.  You must run this command before you commit your changes to gromit-sample.
 
 <pre><code>gradle clean war
 </code></pre>
