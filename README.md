@@ -60,9 +60,9 @@ The `gromit.init` function must be called before making HTTP requests with Gromi
 
 ### gromit.get
 
-The `gromit.get` function supports simple HTTP GET operations.  The arguments to this function are:
+The `gromit.get` function supports HTTP GET operations.  The arguments to this function are:
 
-  * `url` - The URL to make the get request to
+  * `url` - The URL to make the GET request to
   * `http` - The Angular HTTP object to use for this request
   * `successCallback` - The callback function if the call succeeds
   * `errorCallback` - The callback function if the call fails with a well formatted error
