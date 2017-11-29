@@ -171,6 +171,16 @@ The `unknownErrorCallback` function is called with the following arguments:
   * The HTTP status code returned by the server
   * A JavaScript object containing the HTTP headers sent from the server
 
+###gromit.doLogout
+
+This function securely logs the client out.  This will remove any data in JavaScript memory as well as any cookies that contain token data.  It will then send the logout request to the OSP server to complete the process.  The last step is that it will refresh the current page to remove any data from JavaScript memory that might be hanging around from the previous session.  
+
+The `doLogout` function doesn't take any arguments.
+
+```
+gromit.doLogout();
+```
+
 ## Showing messages with Gromit
 
 Gromit provides the ability to show transient and permanent messages in your application.  
