@@ -181,6 +181,24 @@ The `doLogout` function doesn't take any arguments.
 gromit.doLogout();
 ```
 
+### gromit.token
+
+This is a property that has the current access token.  This property will be null until a REST call is made and the user logs in. 
+
+This property may also contain an expired token if the current access token has timed out.  The safest way to use this property is in the callback for another REST call to make sure the token is valid.  
+
+```
+gromit.get('http://myserver/myapi', $http, function(data) {
+    console.log('my token is: ' + gromit.token;
+});
+```
+
+### gromit.tokenType
+
+This property contains the token type of the access token.  This value is null until a REST call is made and the user logs in.
+
+Once the property is set the value is almost always `Bearer`.
+
 ## Showing messages with Gromit
 
 Gromit provides the ability to show transient and permanent messages in your application.  
