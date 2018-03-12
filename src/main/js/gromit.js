@@ -52,12 +52,10 @@ var gromit = {
              * We want to specify the formats for the short dates in US English
              * so they don't have the starting zero.
              */
-            if (gromit.bestLocale.toLowerCase() === 'en' || gromit.bestLocale.toLowerCase() === 'en_US') {
-                moment.locale('en', {
+            if (gromit.bestLocale.toLowerCase() === 'en' || gromit.bestLocale.toLowerCase() === 'en_us') {
+                moment.updateLocale('en', {
                     longDateFormat: {
                         L: 'M/D/YYYY',
-                        LT: 'h:mm A',
-                        LL : 'MMMM Do YYYY',
                         LLLL: 'ddd MMMM D YYYY LT'
                     }
                 });
