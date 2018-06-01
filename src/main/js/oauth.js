@@ -292,6 +292,15 @@ gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback, /*boo
     url += '?response_type=token';
     url += '&redirect_uri=' + gromit.getCurrentUrl() + 'oauth.html';
     url += '&client_id=' + gromit.ClientId;
+    
+    if (gromit.AuthParams) {
+        for (var i = 0; i < gromit.AuthParams.length; i++) {
+            url += '&' + gromit.AuthParams[i].name;
+            if (gromit.AuthParams[i].value !== 'null') {
+                url += '=' + gromit.AuthParams[i].value;
+            }
+        }
+    }
 
     if (isBackground) {
         url += '&bgr=true';
