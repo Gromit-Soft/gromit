@@ -1,10 +1,10 @@
 /*******************************************************************************
  * 
  * MIT License
- * Copyright (c) 2015-2016 NetIQ Corporation, a Micro Focus company
+ * Copyright (c) 2015-2018 NetIQ Corporation, a Micro Focus company
  *
  ******************************************************************************/
- 'use strict';
+'use strict';
 
 /*
  * The requests array holds onto requests which are pending while the login
@@ -36,6 +36,7 @@ gromit.doRequest = function(/*Object*/ req) {
         gromit.request(req);
     }
 };
+    
 
 /**
  * @private
@@ -60,11 +61,6 @@ gromit.request = function(/*Object*/ req) {
                 gromit.showGeneralError(code, subcode, reason);
             }
         };
-    }
-
-    if (!_.isFunction(req.http)) {
-        throw 'The http object in the request was not a function.  This normally happens when you haven\'t ' +
-        'declared $http in the definition of your controller.';
     }
 
     var validateTime = function() {
@@ -106,6 +102,17 @@ gromit.request = function(/*Object*/ req) {
 
     };
 
+    // We support both AngularJS and Angular, but 
+    // the code execution paths are slightly different, so we
+    // must determine where we are running
+    
+    // simple check to see if we are angular or angularJS
+    // In angularJS, req.http is a function,
+    // In angular, req.http is not
+    var isAngularJS = function(req) {
+        return _.isFunction(req.http);
+    }
+
     var handle401 = function(req) {
         if (!validateTime()) {
             gromit.println('the time was not valid');
@@ -123,7 +130,89 @@ gromit.request = function(/*Object*/ req) {
             gromit.doLogin(req);
         }
     };
+
+    /**
+      *
+      * This code block does the actual request to the server based on the request object
+      * with configured parameters, it is used if the requester is angular, not angularJS
+      */
+    if (!isAngularJS(req)) {
+
+      // extract the options from the request, the req object is build with angularJS in mind
+      var options = {};
+      options.headers = req.headers;
+      options.observe = 'response';
+      if (req.data) {
+        options.body = req.data;
+      }
+
+      var responsePromiseAngular = req.http.request(req.method, req.url, options).toPromise();
     
+      responsePromiseAngular.then(function (response) {
+    
+        /*
+         * This is the success callback
+         */
+        if (req.successCallback) {
+          req.successCallback(response.body, response.status, response.headers);
+        }
+      }, function (response) {
+        /*
+         * This is the error callback
+         */
+        if (response.status === 0) {
+          /*
+           * This means we weren't able to contact the server at all
+           */
+          gromit.showFatalError('Unable to contact server at ' + req.url);
+        } else if (response.error && response.error.Fault) {
+          /*
+           * This means the server returned a RESTException
+           */
+          if (response.status === 401 &&
+            (response.error.Fault.Code.Subcode.Value === 'NoCredentials' ||
+              response.error.Fault.Code.Subcode.Value === 'Expired')) {
+            handle401(req);
+          } else if (req.errorCallback) {
+            /*
+             * This means it was just a normal RESTException and we want to pass it back
+             * to the calling code.
+             */
+            req.errorCallback(response.error.Fault.Code.Value, response.error.Fault.Code.Subcode.Value, response.error.Fault.Reason.Text);
+          }
+        } else {
+          /*
+           * This means we got a response from the server which didn't have JSON data
+           */
+          if (response.status === 404) {
+            /*
+             * If the item wasn't found then we want to send that to the calling code
+             */
+            req.errorCallback('Sender', 'NotFound', '');
+          } else if (response.status === 401) {
+            handle401(req);
+          } else if (req.unknownErrorCallback) {
+            /*
+             * This means they gave us a special handler for generic exceptions
+             */
+            req.unknownErrorCallback(response.body, response.status, response.headers);
+          } else {
+            if (response.body) {
+              gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, response.body));
+            } else {
+              gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, ''));
+            }
+            if (window.console) {
+              console.error(gromit.showFatalError(gromit.i18n.getI18n_fatal_request_error(req.url, response.status, response.body)));
+            }
+          }
+        }
+      });
+    
+      return responsePromiseAngular;
+    }
+    
+    // we are down here only if the client is AngularJS
     var responsePromise = req.http(req);
 
     responsePromise.then(function(response) {
@@ -292,7 +381,7 @@ gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback, /*boo
     url += '?response_type=token';
     url += '&redirect_uri=' + gromit.getCurrentUrl() + 'oauth.html';
     url += '&client_id=' + gromit.ClientId;
-    
+
     if (gromit.AuthParams) {
         for (var i = 0; i < gromit.AuthParams.length; i++) {
             url += '&' + gromit.AuthParams[i].name;
@@ -341,9 +430,11 @@ gromit.oAuthAuthenticate = function(/*String*/ url, /*function*/ callback, /*boo
  * file and that will call back to the parent frame running this function.  When this function
  * completes it calls to the oAuthAuthenticateComplete function.
  */
-gromit.oAuthAuthenticateCompleteEventListener = function(event) {
+gromit.oAuthAuthenticateCompleteEventListener = function (event) {
+  if (JSON.stringify(event.data).startsWith('/#')) {
     window.removeEventListener('message', gromit.oAuthAuthenticateCompleteEventListener, false);
     gromit.oAuthAuthenticateComplete(event.data);
+  }
 };
 
 /**
@@ -391,9 +482,12 @@ gromit.oAuthAuthenticateComplete = function(/*String*/ response) {
  *
  */
 gromit.fireLoginEvent = function() {
-    var $body = angular.element(document.body);
-    var $rootScope = $body.scope().$root;
-    $rootScope.$apply(function () {
-        $rootScope.$broadcast('loginCompleted');
-    });
+    // TODO: Add code to allow login complete callback in an Angular 6 environment
+    if (typeof angular !== 'undefined') {
+        var $body = angular.element(document.body);
+        var $rootScope = $body.scope().$root;
+        $rootScope.$apply(function () {
+            $rootScope.$broadcast('loginCompleted');
+        });
+    }
 };

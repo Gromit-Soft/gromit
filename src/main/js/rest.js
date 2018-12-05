@@ -1,10 +1,10 @@
 /*******************************************************************************
  * 
  * MIT License
- * Copyright (c) 2015-2016 NetIQ Corporation, a Micro Focus company
+ * Copyright (c) 2015-2018 NetIQ Corporation, a Micro Focus company
  *
  ******************************************************************************/
- 'use strict';
+'use strict';
 
 /**
  * Get a specified JSON resource from the server.
@@ -84,13 +84,26 @@ gromit.getPromise = function(/*String*/ url, /*Angular HTTP object*/ http, /*fun
     return gromit.requestPromise(req);
 };
 
+// We support both AngularJS and Angular, but 
+// the code execution paths are slightly different, so we
+// must determine where we are running
+    
+// simple check to see if we are angular or angularJS
+// In angularJS, req.http is a function,
+// In angular, req.http is not
+var isAngularJS = function(req) {
+    return _.isFunction(req.http);
+};
+
 /**
  * POST multipart data to the server.  This function works like the normal post function, but
  * it explicitely unsets the Content-Type header and does not set the Accept header to allow for 
  * other data types in addition to JSON.
+ * 
+ * Note the above logic only applies to AngularJS, as Angular requires no Content-Type header to be included
  *
  * @param url the URL of the resource
- * @param http the Angular HTTP object to make the request with
+ * @param http the AngularJS HTTP object, or Angular httpClient to make the request with
  * @param data the form data to send to the server  (file: file, data: jsondata}
  * @param successCallback the function that will be called back with the data
  * @param errorCallback the function that will be called back if the request fails
@@ -98,17 +111,24 @@ gromit.getPromise = function(/*String*/ url, /*Angular HTTP object*/ http, /*fun
  */
 gromit.postMultipart = function(/*String*/ url, /*Angular HTTP object*/ http, /*String*/ data, /*function*/ successCallback,
                                 /*function*/ errorCallback, /*function*/ unknownErrorCallback) {
+
     var req = {
         method: 'POST',
         url: url,
-        data: data,
-        transformRequest: angular.identity,
-        headers: {
-            'Content-Type': undefined
-        }
+        data: data
     };
 
     req.http = http;
+
+    // angularJS needs content-type to be undefined, transformRequest to be identity.
+    // angular creates it's own content-type header, it MUST not be included at all
+    if (isAngularJS(req)) {
+        req.headers = { 'Content-Type' : undefined };        
+        req.transformRequest = angular.identity;     
+    } else {
+        req.headers = {};  
+    }
+
     req.successCallback = successCallback;
     req.errorCallback = errorCallback;
     req.unknownErrorCallback = unknownErrorCallback;
@@ -211,9 +231,11 @@ gromit.postInBackground = function(/*String*/ url, /*Angular HTTP object*/ http,
  * PUT multipart data to the server.  This function works like the normal put function, but
  * it explicitely unsets the Content-Type header and does not set the Accept header to allow for 
  * other data types in addition to JSON.
+ * 
+ * Note the above logic only applies to AngularJS, as Angular requires no Content-Type header to be included
  *
  * @param url the URL of the resource
- * @param http the Angular HTTP object to make the request with
+ * @param http the AngularJS HTTP object, or Angular httpClient to make the request with
  * @param data the form data to send to the server  (file: file, data: jsondata}
  * @param successCallback the function that will be called back with the data
  * @param errorCallback the function that will be called back if the request fails
@@ -224,14 +246,20 @@ gromit.putMultipart = function(/*String*/ url, /*Angular HTTP object*/ http, /*S
     var req = {
         method: 'PUT',
         url: url,
-        data: data,
-        transformRequest: angular.identity,
-        headers: {
-            'Content-Type': undefined
-        }
+        data: data
     };
 
     req.http = http;
+
+    // angularJS needs content-type to be undefined, transformRequest to be identity.
+    // angular creates it's own content-type header, it MUST not be included at all
+    if (isAngularJS(req)) {
+        req.headers = { 'Content-Type' : undefined };        
+        req.transformRequest = angular.identity;     
+    } else {
+        req.headers = {};  
+    }
+
     req.successCallback = successCallback;
     req.errorCallback = errorCallback;
     req.unknownErrorCallback = unknownErrorCallback;

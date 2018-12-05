@@ -1,10 +1,10 @@
 /*******************************************************************************
  * 
  * MIT License
- * Copyright (c) 2015-2016 NetIQ Corporation, a Micro Focus company
+ * Copyright (c) 2015-2018 NetIQ Corporation, a Micro Focus company
  *
  ******************************************************************************/
- 'use strict';
+'use strict';
  
 
 
@@ -90,4 +90,11 @@ var gromit = {
     }
 };
 
-angular.module('gromitsoft', []);
+// enclosing in a try-catch to avoid ReferenceError in JavaScript console when app no longer angularJS
+try {
+    if (angular !== undefined) {
+        angular.module('gromitsoft', []);
+    }
+} catch (error) {
+    // do nothing
+}
