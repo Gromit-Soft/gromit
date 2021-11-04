@@ -1,7 +1,7 @@
 /*******************************************************************************
  * 
  * MIT License
- * Copyright (c) 2015-2018 NetIQ Corporation, a Micro Focus company
+ * Copyright (c) 2015-2018, 2021 NetIQ Corporation, a Micro Focus company
  *
  ******************************************************************************/
 'use strict';
