@@ -111,7 +111,7 @@ gromit.request = function(/*Object*/ req) {
     // In angular, req.http is not
     var isAngularJS = function(req) {
         return _.isFunction(req.http);
-    }
+    };
 
     var handle401 = function(req) {
         if (!validateTime()) {
