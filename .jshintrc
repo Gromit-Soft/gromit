@@ -26,5 +26,5 @@
   "predef": [ "angular", "moment", "require", "define", "_", "Showdown", "Markdown", "humanMsg", "JSON" ],
   "maxparams": 16,
   "maxdepth": 7,
-  "maxcomplexity": 20
+  "maxcomplexity": 25
 }
